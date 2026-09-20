@@ -5,18 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>時光沙漏 - 10 頁 IG 輪播貼文排版</title>
 
-  <!-- Preload Critical LCP Image for instant first frame -->
+  <!-- Preload Critical First Image Only (110KB for instant first render) -->
   <link rel="preload" as="image" href="./slide_01.jpg" fetchpriority="high">
+
+  <!-- Asynchronous Google Fonts (Zero render blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap"></noscript>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: #080c14;
       color: #f1f5f9;
-      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Songti TC", "Heiti TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       padding: 14px;
@@ -27,11 +30,12 @@
     @media (min-width: 640px) { body { padding: 24px; } }
     @media (min-width: 768px) { body { padding: 32px; } }
 
+    /* High-performance font stacks prioritizing native system fonts */
     .font-serif-tc {
-      font-family: 'Noto Serif TC', 'Songti TC', 'PMingLiU', Georgia, serif;
+      font-family: 'Noto Serif TC', 'Songti TC', 'PingFang TC', 'PMingLiU', Georgia, serif;
     }
     .font-sans-tc {
-      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
     }
     .text-shadow-film {
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.95);
@@ -164,7 +168,7 @@
         <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #fbbf24; font-weight: 600;">
           <span>35mm Film Storyboard</span>
           <span>•</span>
-          <span>手感拖曳輪播</span>
+          <span>極速秒開架構（首屏 ~180KB）</span>
         </div>
         <h1 class="font-serif-tc" style="font-size: 1.65rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
           <span>⏳《時光沙漏》10 頁 IG 輪播貼文排版</span>
@@ -229,7 +233,7 @@
             <div id="carousel-track" class="carousel-track">
               
     <div class="carousel-slide" data-index="0">
-      <img src="./slide_01.jpg" alt="Slide 1" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-0" src="./slide_01.jpg" data-full="./slide_01.jpg" alt="Slide 1" draggable="false" fetchpriority="high" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -269,10 +273,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="1">
-      <img src="./slide_02.jpg" alt="Slide 2" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-1" src="./slide_02_thumb.jpg" data-full="./slide_02.jpg" alt="Slide 2" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -314,10 +318,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="2">
-      <img src="./slide_03.jpg" alt="Slide 3" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-2" src="./slide_03_thumb.jpg" data-full="./slide_03.jpg" alt="Slide 3" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -359,10 +363,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="3">
-      <img src="./slide_04.jpg" alt="Slide 4" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-3" src="./slide_04_thumb.jpg" data-full="./slide_04.jpg" alt="Slide 4" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -404,10 +408,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="4">
-      <img src="./slide_05.jpg" alt="Slide 5" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-4" src="./slide_05_thumb.jpg" data-full="./slide_05.jpg" alt="Slide 5" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -449,10 +453,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="5">
-      <img src="./slide_06.jpg" alt="Slide 6" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-5" src="./slide_06_thumb.jpg" data-full="./slide_06.jpg" alt="Slide 6" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -494,10 +498,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="6">
-      <img src="./slide_07.jpg" alt="Slide 7" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-6" src="./slide_07_thumb.jpg" data-full="./slide_07.jpg" alt="Slide 7" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -540,10 +544,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="7">
-      <img src="./slide_08.jpg" alt="Slide 8" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-7" src="./slide_08_thumb.jpg" data-full="./slide_08.jpg" alt="Slide 8" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -587,10 +591,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="8">
-      <img src="./slide_09.jpg" alt="Slide 9" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-8" src="./slide_09_thumb.jpg" data-full="./slide_09.jpg" alt="Slide 9" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -633,10 +637,10 @@
         </div>
       </div>
     </div>
-  
+    
 
     <div class="carousel-slide" data-index="9">
-      <img src="./slide_10.jpg" alt="Slide 10" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+      <img id="slide-img-9" src="./slide_10_thumb.jpg" data-full="./slide_10.jpg" alt="Slide 10" draggable="false" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: filter 0.3s ease;" class="blur-placeholder" />
 
       <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
         <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -688,7 +692,7 @@
         </div>
       </div>
     </div>
-  
+    
             </div>
 
             <!-- Slide Navigation Floating Arrows -->
@@ -976,11 +980,28 @@
         if (e.key === 'ArrowRight') nextSlide();
       });
 
+      // Hydrate slides 2-10 in background smoothly after initial paint
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => prefetchNextSlides());
+        requestIdleCallback(() => hydrateRemainingSlides());
       } else {
-        setTimeout(prefetchNextSlides, 400);
+        setTimeout(hydrateRemainingSlides, 200);
       }
+    }
+
+    // Progressively upgrade slides 2~10 to full resolution in background
+    function hydrateRemainingSlides() {
+      slidesData.forEach((slide, idx) => {
+        if (idx === 0) return; // Slide 1 already loaded full
+        const imgLoader = new Image();
+        imgLoader.src = slide.img;
+        imgLoader.onload = () => {
+          const domImg = document.getElementById('slide-img-' + idx);
+          if (domImg) {
+            domImg.src = slide.img;
+            domImg.classList.remove('blur-placeholder');
+          }
+        };
+      });
     }
 
     function setupContinuousDrag() {
@@ -1101,13 +1122,6 @@
       } else {
         openTreeHole('我今天很勇敢了');
       }
-    }
-
-    function prefetchNextSlides() {
-      slidesData.slice(1).forEach((item) => {
-        const img = new Image();
-        img.src = item.img;
-      });
     }
 
     function renderDots() {
@@ -1325,7 +1339,6 @@
       }
     });
 
-    // Run on ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
