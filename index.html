@@ -87,7 +87,6 @@
       overflow: hidden;
     }
 
-    /* Common utility classes */
     .w-full { width: 100%; }
     .max-w-4xl { max-width: 56rem; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -123,6 +122,7 @@
       inset: 0;
       background: rgba(2, 6, 23, 0.85);
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -206,7 +206,7 @@
         <div class="w-full film-grain" style="background: #000; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; user-select: none;">
 
           <!-- IG Top Navigation Bar -->
-          <div style="padding: 10px 16px; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 20; position: relative;">
+          <div style="padding: 10px 16px; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 20; position: relative;">
             <div style="display: flex; align-items: center; gap: 10px;">
               <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #d97706, #fbbf24); padding: 1.5px;">
                 <div style="width: 100%; height: 100%; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 10px;">
@@ -227,7 +227,468 @@
           <div id="carousel-container" class="carousel-container">
             
             <div id="carousel-track" class="carousel-track">
-              <!-- Rendered via JS for seamless track-based dragging -->
+              
+    <div class="carousel-slide" data-index="0">
+      <img src="./slide_01.jpg" alt="Slide 1" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              起點 • Hook
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 01
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+不知從什麼時候開始。
+我們都學會了，
+只有在四下無人的時候，
+才敢輕輕嘆一口氣。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="1">
+      <img src="./slide_02.jpg" alt="Slide 2" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              偽裝 • Agitation
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 02
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+這幾年，我一直很努力。
+想扮演好一個情緒穩定的成年人。
+
+難過了就滑滑手機一笑帶過。
+習慣只報喜不報憂，笑著說：
+「我最近很好啊，不用擔心。」
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="2">
+      <img src="./slide_03.jpg" alt="Slide 3" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              墜落 • Peak Tension
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 03
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+就在按下「結束通話」的那一秒。
+看著吃著結塊、冷掉的晚餐。
+
+突然覺得整個人被掏空了。
+害怕自己會在這個無聲的房間裡，
+一直往下墜。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="3">
+      <img src="./slide_04.jpg" alt="Slide 4" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              逃離 • The Turning
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 04
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+我抓起鑰匙逃出門，
+在街上沒有目的地走著。
+卻遇上一場突然的大雨。
+
+為了躲雨，我狼狽地推開了
+「時光沙漏」的門。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="4">
+      <img src="./slide_05.jpg" alt="Slide 5" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              接納 • Warmth
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 05
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+店裡很安靜。
+吧檯正在手沖咖啡，
+熱水一圈一圈落下。
+
+一股很深、很暖的咖啡焦香，
+飄了過來。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="5">
+      <img src="./slide_06.jpg" alt="Slide 6" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              觸發 • Nostalgia
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 06
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+角落的木櫃上，
+放著一台很舊的卡帶收音機。
+正播著帶點雜訊的老歌。
+
+聞著那陣咖啡香，盯著那台舊收音機。
+視線突然就模糊了。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="6">
+      <img src="./slide_07.jpg" alt="Slide 7" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              高潮 • Emotional Peak
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 07
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+阿公也有一台一模一樣的。
+只要我一受委屈、一哭。
+他就會用那雙沾著咖啡香氣、
+粗糙又溫熱的手。
+把我輕輕抱進懷里，拍著我的背說：
+
+「憨孫，賣考，阿公底家啦。」
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="7">
+      <img src="./slide_08.jpg" alt="Slide 8" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              現實 • Epiphany
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 08
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+可是阿公，我現在長大了。
+卻再也找不到那個，
+可以讓我放心大哭的地方了。
+
+老物件最殘忍，卻也最溫柔的地方在於——
+它們靜靜地留了下來，
+代替那些已經不在的人，
+看著我們受傷，看著我們長大。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="8">
+      <img src="./slide_09.jpg" alt="Slide 9" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              解藥 • Catharsis
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 09
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+如果你最近也覺得，撐得有點辛苦。
+我們在「時光沙漏」為你留了一個位子。
+也準備了一個專屬的《時光樹洞》。
+
+它不會告訴你未來的路該怎麼走，
+只是想隔著時空，
+輕輕抱抱現在的你。
+          </p>
+
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>‹ 左右滑動 ›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="carousel-slide" data-index="9">
+      <img src="./slide_10.jpg" alt="Slide 10" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
+
+      <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
+        <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+          <div>
+            <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+              行動呼籲 • CTA
+            </span>
+            <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+              CHAPTER 010
+            </span>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+              35MM FILM
+            </span>
+          </div>
+        </div>
+
+        <div class="slide-content-text-wrap" style="margin-top: 12px; margin-bottom: auto; padding: 12px 14px; background: rgba(4, 7, 14, 0.52); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); max-width: 95%;">
+          <p class="slide-text-paragraph text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+👇 在底下留言一句：
+「我今天很勇敢了」
+或者，留下一個 「🌧️」
+
+我會把樹洞入口，悄悄私訊遞給你。
+今晚先不要當大人了，
+來這裡做回會喊痛的孩子吧。
+          </p>
+
+          
+            <div style="margin-top: 12px; display: flex; gap: 8px; pointer-events: auto;">
+              <button onclick="openTreeHole('我今天很勇敢了')" style="padding: 6px 12px; border-radius: 8px; background: #f59e0b; color: #020617; font-weight: 700; border: none; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                <span>💬 留下一句話</span>
+              </button>
+              <button onclick="openTreeHole('🌧️')" style="padding: 6px 10px; border-radius: 8px; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25); font-size: 11px; cursor: pointer;">
+                🌧️ 投遞一場雨
+              </button>
+            </div>
+          
+        </div>
+
+        <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+          <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+            @hourglass_cafe
+          </div>
+          <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+            <span>↺ 重新閱讀</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
             </div>
 
             <!-- Slide Navigation Floating Arrows -->
@@ -270,19 +731,16 @@
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px;">
-            <!-- Toggle Text Overlay -->
             <button id="toggle-overlay-btn" onclick="toggleOverlay()" style="padding: 8px 10px; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: #fff; text-align: left; cursor: pointer;">
               <span style="display: block; font-size: 10px; color: #94a3b8;">文字疊層</span>
               <span id="overlay-status-label" style="font-size: 11px; font-weight: 600; color: #34d399;">● 顯示文案排版</span>
             </button>
 
-            <!-- Toggle Font Family -->
             <button onclick="toggleFont()" style="padding: 8px 10px; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: #fff; text-align: left; cursor: pointer;">
               <span style="display: block; font-size: 10px; color: #94a3b8;">字體風格</span>
               <span id="font-status-label" style="font-size: 11px; font-weight: 600; color: #fcd34d;">● 經典宋體 (Serif)</span>
             </button>
 
-            <!-- Text Position Preset -->
             <button onclick="cyclePosition()" style="padding: 8px 10px; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: #fff; text-align: left; cursor: pointer;">
               <span style="display: block; font-size: 10px; color: #94a3b8;">文字留白位置</span>
               <span id="pos-status-label" style="font-size: 11px; font-weight: 600; color: #7dd3fc;">● 自動最適版型</span>
@@ -306,7 +764,6 @@
             </button>
           </div>
 
-          <!-- Exact Page Text -->
           <div>
             <label style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 600; margin-bottom: 6px; display: block;">
               本頁精準文案（已對齊留白位置）：
@@ -390,167 +847,113 @@
 
   <script>
     const slidesData = [
-      {
-        id: 1,
-        title: "第 1 頁：起點（雨夜車窗）",
-        category: "起點 • Hook",
-        img: "./slide_01.jpg",
-        thumb: "./slide_01_thumb.jpg",
-        copy: "不知從什麼時候開始。
-我們都學會了，
-只有在四下無人的時候，
-才敢輕輕嘆一口氣。",
-        note: "鉤子（Hook）：在黑夜與潮濕的窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 2,
-        title: "第 2 頁：偽裝（暗處的手機微光）",
-        category: "偽裝 • Agitation",
-        img: "./slide_02.jpg",
-        thumb: "./slide_02_thumb.jpg",
-        copy: "這幾年，我一直很努力。
-想扮演好一個情緒穩定的成年人。
-
-難過了就滑滑手機一笑帶過。
-習慣只報喜不報憂，笑著說：
-「我最近很好啊，不用擔心。」",
-        note: "痛點深化：黑暗中只有手機螢幕的光，點出當代人「情緒穩定」的偽裝與無奈，字置於上方大片幽暗留白處。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 3,
-        title: "第 3 頁：墜落（冷掉的晚餐與鑰匙）",
-        category: "墜落 • Peak Tension",
-        img: "./slide_03.jpg",
-        thumb: "./slide_03_thumb.jpg",
-        copy: "就在按下「結束通話」的那一秒。
-看著吃著結塊、冷掉的晚餐。
-
-突然覺得整個人被掏空了。
-害怕自己會在這個無聲的房間裡，
-一直往下墜。",
-        note: "壓迫點：冷便當、一串生鏽鑰匙與掛斷的電話，是生活潰堤的具象化。沙漏見證沉寂。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 4,
-        title: "第 4 頁：逃離（推開舊木門）",
-        category: "逃離 • The Turning",
-        img: "./slide_04.jpg",
-        thumb: "./slide_04_thumb.jpg",
-        copy: "我抓起鑰匙逃出門，
-在街上沒有目的地走著。
-卻遇上一場突然的大雨。
-
-為了躲雨，我狼狽地推開了
-「時光沙漏」的門。",
-        note: "轉折點（Turn）：冷藍雨夜與室內溫暖鎢絲光的強烈對比。磨石子地板與推開門的手，象徵避難所的抵達。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 5,
-        title: "第 5 頁：接納（手沖咖啡的蒸氣）",
-        category: "接納 • Warmth",
-        img: "./slide_05.jpg",
-        thumb: "./slide_05_thumb.jpg",
-        copy: "店裡很安靜。
-吧檯正在手沖咖啡，
-熱水一圈一圈落下。
-
-一股很深、很暖的咖啡焦香，
-飄了過來。",
-        note: "感官撫慰：熱氣與手沖水流，將焦慮的時間定格。暖調琥珀燈光讓緊繃的神經放鬆。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 6,
-        title: "第 6 頁：觸發（舊卡帶收音機）",
-        category: "觸發 • Nostalgia",
-        img: "./slide_06.jpg",
-        thumb: "./slide_06_thumb.jpg",
-        copy: "角落的木櫃上，
-放著一台很舊的卡帶收音機。
-正播著帶點雜訊的老歌。
-
-聞著那陣咖啡香，盯著那台舊收音機。
-視線突然就模糊了。",
-        note: "記憶觸發點（普魯斯特效應）：九〇年代老卡帶收音機與雜訊老歌，開啟深層記憶的鎖。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 7,
-        title: "第 7 頁：高潮（阿公的溫熱手）",
-        category: "高潮 • Emotional Peak",
-        img: "./slide_07.jpg",
-        thumb: "./slide_07_thumb.jpg",
-        copy: "阿公也有一台一模一樣的。
-只要我一受委屈、一哭。
-他就會用那雙沾著咖啡香氣、
-粗糙又溫熱的手。
-把我輕輕抱進懷里，拍著我的背說：
-
-「憨孫，賣考，阿公底家啦。」",
-        note: "情感核心高潮：阿公粗糙溫熱的手、缺角的老馬克杯。台語對白引爆全篇最強情感共鳴與淚點。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 8,
-        title: "第 8 頁：現實（桌上的淚痕）",
-        category: "現實 • Epiphany",
-        img: "./slide_08.jpg",
-        thumb: "./slide_08_thumb.jpg",
-        copy: "可是阿公，我現在長大了。
-卻再也找不到那個，
-可以讓我放心大哭的地方了。
-
-老物件最殘忍，卻也最溫柔的地方在於——
-它們靜靜地留了下來，
-代替那些已經不在的人，
-看著我們受傷，看著我們長大。",
-        note: "哲思收攏：雙手握杯與一滴淚痕。道出成長的代價與老物件的溫柔寄託。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 9,
-        title: "第 9 頁：解藥（模糊的溫暖雨窗）",
-        category: "解藥 • Catharsis",
-        img: "./slide_09.jpg",
-        thumb: "./slide_09_thumb.jpg",
-        copy: "如果你最近也覺得，撐得有點辛苦。
-我們在「時光沙漏」為你留了一個位子。
-也準備了一個專屬的《時光樹洞》。
-
-它不會告訴你未來的路該怎麼走，
-只是想隔著時空，
-輕輕抱抱現在的你。",
-        note: "安全空間（Safe Haven）：由內望外的視角，沙漏頂部流空，象徵情緒釋放完成與樹洞的召喚。",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      },
-      {
-        id: 10,
-        title: "第 10 頁：行動呼籲（留給你的位子）",
-        category: "行動呼籲 • CTA",
-        img: "./slide_10.jpg",
-        thumb: "./slide_10_thumb.jpg",
-        copy: "👇 在底下留言一句：
-「我今天很勇敢了」
-或者，留下一個 「🌧️」
-
-我會把樹洞入口，悄悄私訊遞給你。
-今晚先不要當大人了，
-來這裡做回會喊痛的孩子吧。",
-        note: "終局轉換（CTA）：留給讀者的空木椅與倒轉重新計時的沙漏。點擊互動可開啟樹洞回信！",
-        posStyle: "margin-top: 12px; margin-bottom: auto;"
-      }
-    ];
+  {
+    "id": 1,
+    "title": "第 1 頁：起點（雨夜車窗）",
+    "category": "起點 • Hook",
+    "img": "./slide_01.jpg",
+    "thumb": "./slide_01_thumb.jpg",
+    "copy": "不知從什麼時候開始。\n我們都學會了，\n只有在四下無人的時候，\n才敢輕輕嘆一口氣。",
+    "note": "鉤子（Hook）：在黑夜與潮濕的窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 2,
+    "title": "第 2 頁：偽裝（暗處的手機微光）",
+    "category": "偽裝 • Agitation",
+    "img": "./slide_02.jpg",
+    "thumb": "./slide_02_thumb.jpg",
+    "copy": "這幾年，我一直很努力。\n想扮演好一個情緒穩定的成年人。\n\n難過了就滑滑手機一笑帶過。\n習慣只報喜不報憂，笑著說：\n「我最近很好啊，不用擔心。」",
+    "note": "痛點深化：黑暗中只有手機螢幕的光，點出當代人「情緒穩定」的偽裝與無奈，字置於上方大片幽暗留白處。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 3,
+    "title": "第 3 頁：墜落（冷掉的晚餐與鑰匙）",
+    "category": "墜落 • Peak Tension",
+    "img": "./slide_03.jpg",
+    "thumb": "./slide_03_thumb.jpg",
+    "copy": "就在按下「結束通話」的那一秒。\n看著吃著結塊、冷掉的晚餐。\n\n突然覺得整個人被掏空了。\n害怕自己會在這個無聲的房間裡，\n一直往下墜。",
+    "note": "壓迫點：冷便當、一串生鏽鑰匙與掛斷的電話，是生活潰堤的具象化。沙漏見證沉寂。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 4,
+    "title": "第 4 頁：逃離（推開舊木門）",
+    "category": "逃離 • The Turning",
+    "img": "./slide_04.jpg",
+    "thumb": "./slide_04_thumb.jpg",
+    "copy": "我抓起鑰匙逃出門，\n在街上沒有目的地走著。\n卻遇上一場突然的大雨。\n\n為了躲雨，我狼狽地推開了\n「時光沙漏」的門。",
+    "note": "轉折點（Turn）：冷藍雨夜與室內溫暖鎢絲光的強烈對比。磨石子地板與推開門的手，象徵避難所的抵達。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 5,
+    "title": "第 5 頁：接納（手沖咖啡的蒸氣）",
+    "category": "接納 • Warmth",
+    "img": "./slide_05.jpg",
+    "thumb": "./slide_05_thumb.jpg",
+    "copy": "店裡很安靜。\n吧檯正在手沖咖啡，\n熱水一圈一圈落下。\n\n一股很深、很暖的咖啡焦香，\n飄了過來。",
+    "note": "感官撫慰：熱氣與手沖水流，將焦慮的時間定格。暖調琥珀燈光讓緊繃的神經放鬆。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 6,
+    "title": "第 6 頁：觸發（舊卡帶收音機）",
+    "category": "觸發 • Nostalgia",
+    "img": "./slide_06.jpg",
+    "thumb": "./slide_06_thumb.jpg",
+    "copy": "角落的木櫃上，\n放著一台很舊的卡帶收音機。\n正播著帶點雜訊的老歌。\n\n聞著那陣咖啡香，盯著那台舊收音機。\n視線突然就模糊了。",
+    "note": "記憶觸發點（普魯斯特效應）：九〇年代老卡帶收音機與雜訊老歌，開啟深層記憶的鎖。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 7,
+    "title": "第 7 頁：高潮（阿公的溫熱手）",
+    "category": "高潮 • Emotional Peak",
+    "img": "./slide_07.jpg",
+    "thumb": "./slide_07_thumb.jpg",
+    "copy": "阿公也有一台一模一樣的。\n只要我一受委屈、一哭。\n他就會用那雙沾著咖啡香氣、\n粗糙又溫熱的手。\n把我輕輕抱進懷里，拍著我的背說：\n\n「憨孫，賣考，阿公底家啦。」",
+    "note": "情感核心高潮：阿公粗糙溫熱的手、缺角的老馬克杯。台語對白引爆全篇最強情感共鳴與淚點。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 8,
+    "title": "第 8 頁：現實（桌上的淚痕）",
+    "category": "現實 • Epiphany",
+    "img": "./slide_08.jpg",
+    "thumb": "./slide_08_thumb.jpg",
+    "copy": "可是阿公，我現在長大了。\n卻再也找不到那個，\n可以讓我放心大哭的地方了。\n\n老物件最殘忍，卻也最溫柔的地方在於——\n它們靜靜地留了下來，\n代替那些已經不在的人，\n看著我們受傷，看著我們長大。",
+    "note": "哲思收攏：雙手握杯與一滴淚痕。道出成長的代價與老物件的溫柔寄託。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 9,
+    "title": "第 9 頁：解藥（模糊的溫暖雨窗）",
+    "category": "解藥 • Catharsis",
+    "img": "./slide_09.jpg",
+    "thumb": "./slide_09_thumb.jpg",
+    "copy": "如果你最近也覺得，撐得有點辛苦。\n我們在「時光沙漏」為你留了一個位子。\n也準備了一個專屬的《時光樹洞》。\n\n它不會告訴你未來的路該怎麼走，\n只是想隔著時空，\n輕輕抱抱現在的你。",
+    "note": "安全空間（Safe Haven）：由內望外的視角，沙漏頂部流空，象徵情緒釋放完成與樹洞的召喚。",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  },
+  {
+    "id": 10,
+    "title": "第 10 頁：行動呼籲（留給你的位子）",
+    "category": "行動呼籲 • CTA",
+    "img": "./slide_10.jpg",
+    "thumb": "./slide_10_thumb.jpg",
+    "copy": "👇 在底下留言一句：\n「我今天很勇敢了」\n或者，留下一個 「🌧️」\n\n我會把樹洞入口，悄悄私訊遞給你。\n今晚先不要當大人了，\n來這裡做回會喊痛的孩子吧。",
+    "note": "終局轉換（CTA）：留給讀者的空木椅與倒轉重新計時的沙漏。點擊互動可開啟樹洞回信！",
+    "posStyle": "margin-top: 12px; margin-bottom: auto;"
+  }
+];
 
     let currentIndex = 0;
     let showOverlay = true;
     let isSerif = true;
-    let currentPos = "auto"; // "auto", "top", "center", "bottom"
+    let currentPos = "auto";
 
-    // Carousel dragging physics state
     let isDragging = false;
     let startX = 0;
     let currentX = 0;
@@ -559,19 +962,20 @@
     let containerEl = null;
 
     function init() {
-      renderTrackSlides();
+      trackEl = document.getElementById('carousel-track');
+      containerEl = document.getElementById('carousel-container');
+
       renderDots();
       renderReel();
       renderGrid();
       setupContinuousDrag();
+      updateSidebar(0);
 
-      // Keyboard navigation
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prevSlide();
         if (e.key === 'ArrowRight') nextSlide();
       });
 
-      // Background progressive prefetching of slides 2~10 (non-blocking)
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => prefetchNextSlides());
       } else {
@@ -579,79 +983,16 @@
       }
     }
 
-    function renderTrackSlides() {
-      trackEl = document.getElementById('carousel-track');
-      containerEl = document.getElementById('carousel-container');
-
-      trackEl.innerHTML = slidesData.map((slide, idx) => `
-        <div class="carousel-slide" data-index="${idx}">
-          <img src="${slide.img}" alt="Slide ${slide.id}" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
-
-          <!-- Integrated Text Overlay (Moves seamlessly WITH the image) -->
-          <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; opacity: ${showOverlay ? '1' : '0'}; transition: opacity 0.2s ease;">
-            
-            <!-- Top Header -->
-            <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
-              <div>
-                <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
-                  ${slide.category}
-                </span>
-                <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
-                  CHAPTER 0${slide.id}
-                </span>
-              </div>
-              <div style="text-align: right;">
-                <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
-                  35MM FILM
-                </span>
-              </div>
-            </div>
-
-            <!-- Content text block with soft readable backplate for contrast on bright photos -->
-            <div class="slide-content-text-wrap" style="${slide.posStyle} padding: 12px 14px; background: rgba(4, 7, 14, 0.48); backdrop-filter: blur(4px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); max-width: 95%;">
-              <p class="slide-text-paragraph text-shadow-film ${isSerif ? 'font-serif-tc' : 'font-sans-tc'}" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
-                ${slide.copy}
-              </p>
-
-              ${slide.id === 10 ? `
-                <div style="margin-top: 12px; display: flex; gap: 8px; pointer-events: auto;">
-                  <button onclick="openTreeHole('我今天很勇敢了')" style="padding: 6px 12px; border-radius: 8px; background: #f59e0b; color: #020617; font-weight: 700; border: none; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-                    <span>💬 留下一句話</span>
-                  </button>
-                  <button onclick="openTreeHole('🌧️')" style="padding: 6px 10px; border-radius: 8px; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25); font-size: 11px; cursor: pointer;">
-                    🌧️ 投遞一場雨
-                  </button>
-                </div>
-              ` : ''}
-            </div>
-
-            <!-- Bottom Footer -->
-            <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
-              <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
-                @hourglass_cafe
-              </div>
-              <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
-                <span>${idx === 9 ? '↺ 重新閱讀' : '‹ 左右滑動 ›'}</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      `).join('');
-    }
-
-    /* --- REAL-TIME TOUCH & MOUSE DRAGGING (Follows finger like native app) --- */
     function setupContinuousDrag() {
       let isTouch = false;
 
-      // Touch handlers (Mobile)
       containerEl.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
           isDragging = true;
           isTouch = true;
           startX = e.touches[0].clientX;
           currentX = startX;
-          trackEl.style.transition = 'none'; // Instant follow
+          trackEl.style.transition = 'none';
         }
       }, { passive: true });
 
@@ -660,14 +1001,13 @@
         currentX = e.touches[0].clientX;
         dragOffset = currentX - startX;
 
-        // Apply resistance if dragging past ends (rubber band effect)
         let resistance = 1;
         if ((currentIndex === 0 && dragOffset > 0) || (currentIndex === slidesData.length - 1 && dragOffset < 0)) {
           resistance = 0.28;
         }
 
         const currentTranslate = -currentIndex * containerEl.offsetWidth;
-        trackEl.style.transform = `translateX(${currentTranslate + (dragOffset * resistance)}px)`;
+        trackEl.style.transform = "translateX(" + (currentTranslate + (dragOffset * resistance)) + "px)";
       }, { passive: true });
 
       containerEl.addEventListener('touchend', () => {
@@ -676,7 +1016,6 @@
         finalizeDrag();
       }, { passive: true });
 
-      // Mouse drag handlers (Desktop)
       containerEl.addEventListener('mousedown', (e) => {
         isDragging = true;
         isTouch = false;
@@ -696,7 +1035,7 @@
         }
 
         const currentTranslate = -currentIndex * containerEl.offsetWidth;
-        trackEl.style.transform = `translateX(${currentTranslate + (dragOffset * resistance)}px)`;
+        trackEl.style.transform = "translateX(" + (currentTranslate + (dragOffset * resistance)) + "px)";
       });
 
       window.addEventListener('mouseup', () => {
@@ -707,47 +1046,42 @@
 
       function finalizeDrag() {
         trackEl.style.transition = 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
-        const threshold = containerEl.offsetWidth * 0.18; // 18% drag distance threshold
+        const threshold = containerEl.offsetWidth * 0.18;
 
         if (dragOffset < -threshold && currentIndex < slidesData.length - 1) {
-          // Dragged left -> Next
           goToSlide(currentIndex + 1);
         } else if (dragOffset > threshold && currentIndex > 0) {
-          // Dragged right -> Prev
           goToSlide(currentIndex - 1);
         } else if (dragOffset < -threshold && currentIndex === slidesData.length - 1) {
-          // On last slide dragged left -> offer replay or tree hole
           openTreeHole('我今天很勇敢了');
           goToSlide(currentIndex);
         } else {
-          // Snap back to current
           goToSlide(currentIndex);
         }
         dragOffset = 0;
       }
     }
 
-    function goToSlide(index) {
-      currentIndex = index;
-      const slideWidth = containerEl.offsetWidth;
-      trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-      // Update badge & sidebar info
-      const slide = slidesData[currentIndex];
-      document.getElementById('slide-badge').innerText = `${slide.id} / 10`;
-      document.getElementById('detail-page-num').innerText = `PAGE 0${slide.id} / 10`;
+    function updateSidebar(index) {
+      const slide = slidesData[index];
+      document.getElementById('slide-badge').innerText = slide.id + " / 10";
+      document.getElementById('detail-page-num').innerText = "PAGE 0" + slide.id + " / 10";
       document.getElementById('detail-title').innerText = slide.title;
       document.getElementById('detail-copy-box').innerText = slide.copy;
-      document.getElementById('detail-note').innerHTML = `<strong>敘事作用</strong>：${slide.note}`;
+      document.getElementById('detail-note').innerHTML = "<strong>敘事作用</strong>：" + slide.note;
 
-      // Show/Hide CTA on Page 10
       const ctaBox = document.getElementById('detail-cta-box');
       if (slide.id === 10) {
         ctaBox.style.display = 'block';
       } else {
         ctaBox.style.display = 'none';
       }
+    }
 
+    function goToSlide(index) {
+      currentIndex = index;
+      trackEl.style.transform = "translateX(-" + (currentIndex * 100) + "%)";
+      updateSidebar(currentIndex);
       renderDots();
       renderReel();
     }
@@ -756,9 +1090,8 @@
       if (currentIndex > 0) {
         goToSlide(currentIndex - 1);
       } else {
-        // Subtle bounce
-        trackEl.style.transform = `translateX(20px)`;
-        setTimeout(() => { trackEl.style.transform = `translateX(0)`; }, 180);
+        trackEl.style.transform = "translateX(20px)";
+        setTimeout(() => { trackEl.style.transform = "translateX(0)"; }, 180);
       }
     }
 
@@ -766,7 +1099,6 @@
       if (currentIndex < slidesData.length - 1) {
         goToSlide(currentIndex + 1);
       } else {
-        // Last slide: open tree hole directly
         openTreeHole('我今天很勇敢了');
       }
     }
@@ -780,48 +1112,46 @@
 
     function renderDots() {
       const container = document.getElementById('pagination-dots');
-      container.innerHTML = slidesData.map((_, idx) => `
-        <div onclick="goToSlide(${idx})" style="width: ${idx === currentIndex ? '14px' : '6px'}; height: 6px; border-radius: 9999px; background: ${idx === currentIndex ? '#fbbf24' : 'rgba(255,255,255,0.3)'}; cursor: pointer; transition: all 0.25s;"></div>
-      `).join('');
+      container.innerHTML = slidesData.map((_, idx) => 
+        '<div onclick="goToSlide(' + idx + ')" style="width: ' + (idx === currentIndex ? '14px' : '6px') + '; height: 6px; border-radius: 9999px; background: ' + (idx === currentIndex ? '#fbbf24' : 'rgba(255,255,255,0.3)') + '; cursor: pointer; transition: all 0.25s;"></div>'
+      ).join('');
     }
 
     function renderReel() {
       const container = document.getElementById('thumbnails-reel');
-      container.innerHTML = slidesData.map((slide, idx) => `
-        <button onclick="goToSlide(${idx})" style="flex-shrink: 0; width: 48px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid ${idx === currentIndex ? '#fbbf24' : 'transparent'}; opacity: ${idx === currentIndex ? '1' : '0.55'}; cursor: pointer; position: relative; padding: 0; background: #020617; transition: all 0.2s;">
-          <img src="${slide.thumb}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
-          <span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.75); font-size: 9px; font-family: monospace; text-align: center; color: #fff; padding: 1px 0;">${slide.id}</span>
-        </button>
-      `).join('');
+      container.innerHTML = slidesData.map((slide, idx) => 
+        '<button onclick="goToSlide(' + idx + ')" style="flex-shrink: 0; width: 48px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid ' + (idx === currentIndex ? '#fbbf24' : 'transparent') + '; opacity: ' + (idx === currentIndex ? '1' : '0.55') + '; cursor: pointer; position: relative; padding: 0; background: #020617; transition: all 0.2s;">' +
+          '<img src="' + slide.thumb + '" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />' +
+          '<span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.75); font-size: 9px; font-family: monospace; text-align: center; color: #fff; padding: 1px 0;">' + slide.id + '</span>' +
+        '</button>'
+      ).join('');
     }
 
     function renderGrid() {
       const grid = document.getElementById('grid-view');
-      grid.innerHTML = slidesData.map((slide, idx) => `
-        <div onclick="goToSlideAndSwitch(${idx})" style="background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column;">
-          <div style="position: relative; aspect-ratio: 3/4; overflow: hidden; background: #020617;">
-            <img src="${slide.thumb}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
-            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.85) 100%); padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">
-              <span style="font-size: 9px; font-family: monospace; background: rgba(0,0,0,0.6); color: #fcd34d; padding: 2px 6px; border-radius: 9999px; align-self: flex-start;">
-                #${slide.id}
-              </span>
-              <p class="font-serif-tc text-shadow-film" style="font-size: 11px; color: #fff; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                ${slide.copy.split('\n')[0]}
-              </p>
-            </div>
-          </div>
-          <div style="padding: 10px; border-top: 1px solid #1e293b;">
-            <h3 style="font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${slide.title}</h3>
-            <span style="font-size: 10px; color: #fbbf24; font-family: monospace;">點擊瀏覽 →</span>
-          </div>
-        </div>
-      `).join('');
+      grid.innerHTML = slidesData.map((slide, idx) => 
+        '<div onclick="goToSlideAndSwitch(' + idx + ')" style="background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; overflow: hidden; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column;">' +
+          '<div style="position: relative; aspect-ratio: 3/4; overflow: hidden; background: #020617;">' +
+            '<img src="' + slide.thumb + '" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />' +
+            '<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.85) 100%); padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">' +
+              '<span style="font-size: 9px; font-family: monospace; background: rgba(0,0,0,0.6); color: #fcd34d; padding: 2px 6px; border-radius: 9999px; align-self: flex-start;">#' + slide.id + '</span>' +
+              '<p class="font-serif-tc text-shadow-film" style="font-size: 11px; color: #fff; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">' +
+                slide.copy.split('\n')[0] +
+              '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div style="padding: 10px; border-top: 1px solid #1e293b;">' +
+            '<h3 style="font-size: 11px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + slide.title + '</h3>' +
+            '<span style="font-size: 10px; color: #fbbf24; font-family: monospace;">點擊瀏覽 →</span>' +
+          '</div>' +
+        '</div>'
+      ).join('');
     }
 
     function goToSlideAndSwitch(idx) {
       setViewMode('single');
       goToSlide(idx);
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll back up to mockup
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function toggleOverlay() {
@@ -886,7 +1216,7 @@
       } else {
         currentPos = "auto";
         label.innerText = "● 自動最適版型";
-        textWraps.forEach((w, i) => {
+        textWraps.forEach((w) => {
           w.style.marginTop = "12px";
           w.style.marginBottom = "auto";
         });
@@ -934,11 +1264,10 @@
       });
     }
 
-    /* --- Interactive Tree Hole Modal Logic --- */
     function openTreeHole(keyword) {
       const modal = document.getElementById('tree-hole-modal');
       const triggerLabel = document.getElementById('modal-reply-trigger');
-      triggerLabel.innerText = `RE: ${keyword || '我今天很勇敢了'}`;
+      triggerLabel.innerText = "RE: " + (keyword || '我今天很勇敢了');
       modal.classList.add('open');
     }
 
@@ -953,7 +1282,6 @@
       }
     }
 
-    /* --- Share Story Feature --- */
     function shareStory() {
       const shareData = {
         title: '⏳ 時光沙漏 - 10 頁 IG 輪播貼文',
@@ -987,18 +1315,22 @@
       }
     }
 
-    function bookmarkPost(el) {
+    function bookmarkPost() {
       showToast('🔖 已為你在時光沙漏收藏此篇故事');
     }
 
-    // Handle window resize to recalculate slider offset
     window.addEventListener('resize', () => {
       if (trackEl && containerEl) {
-        trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+        trackEl.style.transform = "translateX(-" + (currentIndex * 100) + "%)";
       }
     });
 
-    init();
+    // Run on ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
   </script>
 </body>
 </html>
