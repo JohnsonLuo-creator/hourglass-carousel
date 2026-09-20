@@ -9,17 +9,17 @@
   <link rel="preload" as="image" href="./slide_01.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: #090d16;
+      background-color: #080c14;
       color: #f1f5f9;
       font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
-      padding: 16px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -34,13 +34,13 @@
       font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
     }
     .text-shadow-film {
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.95);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.95);
     }
     .text-scrim-top {
-      background: linear-gradient(180deg, rgba(8, 12, 20, 0.90) 0%, rgba(8, 12, 20, 0.55) 60%, rgba(8, 12, 20, 0) 100%);
+      background: linear-gradient(180deg, rgba(5, 8, 15, 0.92) 0%, rgba(5, 8, 15, 0.6) 65%, rgba(5, 8, 15, 0) 100%);
     }
     .text-scrim-bottom {
-      background: linear-gradient(0deg, rgba(8, 12, 20, 0.92) 0%, rgba(8, 12, 20, 0.6) 60%, rgba(8, 12, 20, 0) 100%);
+      background: linear-gradient(0deg, rgba(5, 8, 15, 0.95) 0%, rgba(5, 8, 15, 0.65) 65%, rgba(5, 8, 15, 0) 100%);
     }
     .film-grain {
       position: relative;
@@ -53,65 +53,133 @@
       opacity: 0.05;
       background-image: radial-gradient(#fff 1px, transparent 0);
       background-size: 3px 3px;
+      z-index: 15;
     }
 
-    /* Swipe & Interaction Styles */
-    .touch-viewport {
+    /* Track-based Continuous Smooth Touch Carousel */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
       touch-action: pan-y;
       user-select: none;
       -webkit-user-select: none;
       -webkit-touch-callout: none;
       cursor: grab;
+      background: #020617;
     }
-    .touch-viewport:active {
+    .carousel-container:active {
       cursor: grabbing;
     }
-
-    /* Animations for smooth slide switching */
-    @keyframes slideFromRight {
-      0% { opacity: 0.4; transform: translateX(24px) scale(0.98); }
-      100% { opacity: 1; transform: translateX(0) scale(1); }
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    @keyframes slideFromLeft {
-      0% { opacity: 0.4; transform: translateX(-24px) scale(0.98); }
-      100% { opacity: 1; transform: translateX(0) scale(1); }
-    }
-    .anim-slide-right {
-      animation: slideFromRight 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .anim-slide-left {
-      animation: slideFromLeft 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Common classes */
+    /* Common utility classes */
     .w-full { width: 100%; }
     .max-w-4xl { max-width: 56rem; }
-    .overflow-hidden { overflow: hidden; }
-    .relative { position: relative; }
-    .absolute { position: absolute; }
-    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-    .cursor-pointer { cursor: pointer; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .aspect-3-4 { aspect-ratio: 3 / 4; }
+
+    /* Toast notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fef3c7;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal Animation */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: #141b2b;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 24px;
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.15);
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.open .modal-card {
+      transform: scale(1) translateY(0);
+    }
   </style>
 </head>
 <body>
 
+  <!-- Toast Element -->
+  <div id="toast">已複製連結！</div>
+
   <!-- Header Section -->
   <header class="w-full max-w-4xl" style="display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid #1e293b; margin-bottom: 20px; padding-bottom: 16px;">
-    <div style="display: flex; flex-direction: column; gap: 4px;">
-      <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #fbbf24; font-weight: 600;">
-        <span>35mm Film Storyboard</span>
-        <span>•</span>
-        <span>手指可直接左右滑動</span>
+    <div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #fbbf24; font-weight: 600;">
+          <span>35mm Film Storyboard</span>
+          <span>•</span>
+          <span>手感拖曳輪播</span>
+        </div>
+        <h1 class="font-serif-tc" style="font-size: 1.65rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
+          <span>⏳《時光沙漏》10 頁 IG 輪播貼文排版</span>
+        </h1>
+        <p style="font-size: 13px; color: #94a3b8;">
+          九〇年代台灣質樸底片色調 • 琥珀溫光與雨夜藍調 • 支援手指實體拖拉與情感互動
+        </p>
       </div>
-      <h1 class="font-serif-tc" style="font-size: 1.65rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
-        <span>⏳《時光沙漏》10 頁 IG 輪播貼文排版</span>
-      </h1>
-      <p style="font-size: 13px; color: #94a3b8;">
-        九〇年代台灣質樸底片色調 • 琥珀溫光與雨夜藍調 • 支援手指滑動、鍵盤方向鍵與按鈕切換
-      </p>
+
+      <!-- Action Buttons in Header -->
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button onclick="shareStory()" style="padding: 7px 14px; border-radius: 10px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #fcd34d; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
+          <span>🔗 分享給朋友</span>
+        </button>
+      </div>
     </div>
 
     <!-- View Mode Selector -->
@@ -138,7 +206,7 @@
         <div class="w-full film-grain" style="background: #000; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; user-select: none;">
 
           <!-- IG Top Navigation Bar -->
-          <div style="padding: 10px 16px; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 20; position: relative;">
+          <div style="padding: 10px 16px; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 20; position: relative;">
             <div style="display: flex; align-items: center; gap: 10px;">
               <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #d97706, #fbbf24); padding: 1.5px;">
                 <div style="width: 100%; height: 100%; border-radius: 50%; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 10px;">
@@ -155,58 +223,18 @@
             </div>
           </div>
 
-          <!-- The Visual Canvas (Touch & Drag Enabled) -->
-          <div id="slide-viewport" class="relative w-full aspect-3-4 overflow-hidden touch-viewport" style="background: #020617; display: flex; align-items: center; justify-content: center;">
+          <!-- The Continuous Track Carousel (Follows finger in real-time) -->
+          <div id="carousel-container" class="carousel-container">
             
-            <!-- Slide Image -->
-            <img id="current-slide-img" src="./slide_01.jpg" alt="Slide Image" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
-
-            <!-- Text Overlay Container (pointer-events: none so swipes pass right through) -->
-            <div id="text-overlay-container" class="absolute inset-0" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
-              
-              <!-- Top Header / Page Index Watermark -->
-              <div id="overlay-top-header" class="w-full text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
-                <div>
-                  <span id="overlay-category" class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
-                    起點
-                  </span>
-                  <span id="overlay-date" style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
-                    CHAPTER 01
-                  </span>
-                </div>
-                <div style="text-align: right;">
-                  <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
-                    35MM FILM
-                  </span>
-                </div>
-              </div>
-
-              <!-- Main Copywriting Block -->
-              <div id="overlay-content-box" style="margin-top: 12px; margin-bottom: auto; padding: 12px 6px;">
-                <p id="overlay-text" class="text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #fff;">
-                  不知從什麼時候開始。
-                  我們都學會了，
-                  只有在四下無人的時候，
-                  才敢輕輕嘆一口氣。
-                </p>
-              </div>
-
-              <!-- Bottom Footer -->
-              <div id="overlay-bottom-footer" class="w-full text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
-                <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
-                  @hourglass_cafe
-                </div>
-                <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
-                  <span>‹ 左右滑動 ›</span>
-                </div>
-              </div>
+            <div id="carousel-track" class="carousel-track">
+              <!-- Rendered via JS for seamless track-based dragging -->
             </div>
 
             <!-- Slide Navigation Floating Arrows -->
-            <button onclick="prevSlide()" aria-label="上一頁" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 20px; touch-action: manipulation;">
+            <button onclick="prevSlide()" aria-label="上一頁" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.65); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 20px;">
               ‹
             </button>
-            <button onclick="nextSlide()" aria-label="下一頁" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 20px; touch-action: manipulation;">
+            <button onclick="nextSlide()" aria-label="下一頁" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.65); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 20px;">
               ›
             </button>
           </div>
@@ -214,13 +242,13 @@
           <!-- IG Footer Controls -->
           <div style="padding: 12px 16px; background: #000; color: #fff; font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center; gap: 12px; font-size: 14px;">
-              <span style="cursor: pointer;">🤍</span>
-              <span style="cursor: pointer;">💬</span>
-              <span style="cursor: pointer;">↗️</span>
+              <span style="cursor: pointer;" onclick="likePost(this)">🤍</span>
+              <span style="cursor: pointer;" onclick="openTreeHole('我今天很勇敢了')">💬</span>
+              <span style="cursor: pointer;" onclick="shareStory()">↗️</span>
             </div>
             <!-- Pagination Dots -->
             <div id="pagination-dots" style="display: flex; align-items: center; gap: 4px;"></div>
-            <span style="cursor: pointer; font-size: 14px;">🔖</span>
+            <span style="cursor: pointer; font-size: 14px;" onclick="bookmarkPost(this)">🔖</span>
           </div>
 
         </div>
@@ -238,7 +266,7 @@
             <span style="font-size: 12px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px;">
               <span>🛠️ 排版預覽控制</span>
             </span>
-            <span style="font-size: 11px; color: #94a3b8;">可直接手指滑動 / 鍵盤 ← →</span>
+            <span style="font-size: 11px; color: #94a3b8;">可直接手指拖曳 / 鍵盤 ← →</span>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px;">
@@ -257,7 +285,7 @@
             <!-- Text Position Preset -->
             <button onclick="cyclePosition()" style="padding: 8px 10px; border-radius: 12px; border: 1px solid #334155; background: #1e293b; color: #fff; text-align: left; cursor: pointer;">
               <span style="display: block; font-size: 10px; color: #94a3b8;">文字留白位置</span>
-              <span id="pos-status-label" style="font-size: 11px; font-weight: 600; color: #7dd3fc;">● 置頂留白</span>
+              <span id="pos-status-label" style="font-size: 11px; font-weight: 600; color: #7dd3fc;">● 自動最適版型</span>
             </button>
           </div>
         </div>
@@ -289,8 +317,26 @@
             </div>
           </div>
 
+          <!-- Interactive Tree Hole Trigger Card -->
+          <div id="detail-cta-box" style="display: none; background: linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 14px; padding: 14px;">
+            <div style="font-size: 13px; font-weight: 700; color: #fcd34d; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+              <span>💌 時光樹洞入口（點擊互動）</span>
+            </div>
+            <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.5;">
+              在心裡默默回覆一句話，樹洞會隔著時空為你送上一封手寫信：
+            </p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button onclick="openTreeHole('我今天很勇敢了')" style="padding: 6px 12px; border-radius: 8px; background: #f59e0b; color: #020617; font-weight: 700; border: none; font-size: 12px; cursor: pointer;">
+                💬 「我今天很勇敢了」
+              </button>
+              <button onclick="openTreeHole('🌧️')" style="padding: 6px 12px; border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); font-size: 12px; cursor: pointer;">
+                🌧️ 留下一場雨
+              </button>
+            </div>
+          </div>
+
           <!-- Narrative Function -->
-          <div style="font-size: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px; padding: 12px; color: rgba(254, 243, 199, 0.9); line-height: 1.6; display: flex; align-items: flex-start; gap: 8px;">
+          <div style="font-size: 12px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.18); border-radius: 12px; padding: 12px; color: rgba(254, 243, 199, 0.9); line-height: 1.6; display: flex; align-items: flex-start; gap: 8px;">
             <span style="font-size: 15px; line-height: 1;">💡</span>
             <div id="detail-note">
               <strong>敘事作用</strong>：鉤子（Hook）。在黑夜與潮濕的車窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。
@@ -308,6 +354,40 @@
 
   </main>
 
+  <!-- Interactive Tree Hole Modal -->
+  <div id="tree-hole-modal" class="modal-overlay" onclick="closeModalOnBg(event)">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; border-bottom: 1px solid rgba(245, 158, 11, 0.25); padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 22px;">⏳</span>
+          <div>
+            <h3 class="font-serif-tc" style="font-size: 16px; font-weight: 700; color: #fcd34d;">來自《時光沙漏》的回信</h3>
+            <span id="modal-reply-trigger" style="font-size: 10px; font-family: monospace; color: #94a3b8;">RE: 我今天很勇敢了</span>
+          </div>
+        </div>
+        <button onclick="closeTreeHole()" style="background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; padding: 0 4px;">&times;</button>
+      </div>
+
+      <div class="font-serif-tc" style="color: #f1f5f9; font-size: 14px; line-height: 1.8; margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);">
+        <p style="margin-bottom: 10px; color: #fcd34d; font-weight: 600;">親愛的朋友：</p>
+        <p style="margin-bottom: 12px;">謝謝你把這句話，輕輕留在了這裡。</p>
+        <p style="margin-bottom: 12px;">這幾年很不容易吧？總是要逼自己扮演情緒穩定的成年人，總是習慣對大家笑著說「我很好」，把所有的難過都留在四下無人的夜裡。</p>
+        <p style="margin-bottom: 12px;">但今晚，在這裡，請把防備都卸下來。<br><strong>你今天真的已經很勇敢了，比你想像的還要勇敢。</strong></p>
+        <p style="margin-bottom: 12px;">今晚先不要當大人了，給自己熱一杯水，好好睡一覺。<br>這家老咖啡館靠窗的木椅，永遠替你留著。</p>
+        <p style="text-align: right; color: #fbbf24; font-size: 12px; margin-top: 14px;">—— 時光樹洞 敬上</p>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button onclick="closeTreeHole()" style="flex: 1; padding: 10px; border-radius: 10px; background: #f59e0b; color: #020617; font-weight: 700; border: none; font-size: 13px; cursor: pointer;">
+          ❤️ 收下這份溫暖
+        </button>
+        <button onclick="shareStory()" style="padding: 10px 14px; border-radius: 10px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); font-size: 13px; cursor: pointer;">
+          🔗 轉給懂的人
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const slidesData = [
       {
@@ -320,7 +400,8 @@
 我們都學會了，
 只有在四下無人的時候，
 才敢輕輕嘆一口氣。",
-        note: "鉤子（Hook）：在黑夜與潮濕的窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。"
+        note: "鉤子（Hook）：在黑夜與潮濕的窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 2,
@@ -334,7 +415,8 @@
 難過了就滑滑手機一笑帶過。
 習慣只報喜不報憂，笑著說：
 「我最近很好啊，不用擔心。」",
-        note: "痛點深化：黑暗中只有手機螢幕的光，點出當代人「情緒穩定」的偽裝與無奈，字置於上方大片幽暗留白處。"
+        note: "痛點深化：黑暗中只有手機螢幕的光，點出當代人「情緒穩定」的偽裝與無奈，字置於上方大片幽暗留白處。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 3,
@@ -348,7 +430,8 @@
 突然覺得整個人被掏空了。
 害怕自己會在這個無聲的房間裡，
 一直往下墜。",
-        note: "壓迫點：冷便當、一串生鏽鑰匙與掛斷的電話，是生活潰堤的具象化。沙漏見證沉寂。"
+        note: "壓迫點：冷便當、一串生鏽鑰匙與掛斷的電話，是生活潰堤的具象化。沙漏見證沉寂。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 4,
@@ -362,7 +445,8 @@
 
 為了躲雨，我狼狽地推開了
 「時光沙漏」的門。",
-        note: "轉折點（Turn）：冷藍雨夜與室內溫暖鎢絲光的強烈對比。磨石子地板與推開門的手，象徵避難所的抵達。"
+        note: "轉折點（Turn）：冷藍雨夜與室內溫暖鎢絲光的強烈對比。磨石子地板與推開門的手，象徵避難所的抵達。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 5,
@@ -376,7 +460,8 @@
 
 一股很深、很暖的咖啡焦香，
 飄了過來。",
-        note: "感官撫慰：熱氣與手沖水流，將焦慮的時間定格。暖調琥珀燈光讓緊繃的神經放鬆。"
+        note: "感官撫慰：熱氣與手沖水流，將焦慮的時間定格。暖調琥珀燈光讓緊繃的神經放鬆。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 6,
@@ -390,7 +475,8 @@
 
 聞著那陣咖啡香，盯著那台舊收音機。
 視線突然就模糊了。",
-        note: "記憶觸發點（普魯斯特效應）：九〇年代老卡帶收音機與雜訊老歌，開啟深層記憶的鎖。"
+        note: "記憶觸發點（普魯斯特效應）：九〇年代老卡帶收音機與雜訊老歌，開啟深層記憶的鎖。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 7,
@@ -405,7 +491,8 @@
 把我輕輕抱進懷里，拍著我的背說：
 
 「憨孫，賣考，阿公底家啦。」",
-        note: "情感核心高潮：阿公粗糙溫熱的手、缺角的老馬克杯。台語對白引爆全篇最強情感共鳴與淚點。"
+        note: "情感核心高潮：阿公粗糙溫熱的手、缺角的老馬克杯。台語對白引爆全篇最強情感共鳴與淚點。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 8,
@@ -421,7 +508,8 @@
 它們靜靜地留了下來，
 代替那些已經不在的人，
 看著我們受傷，看著我們長大。",
-        note: "哲思收攏：雙手握杯與一滴淚痕。道出成長的代價與老物件的溫柔寄託。"
+        note: "哲思收攏：雙手握杯與一滴淚痕。道出成長的代價與老物件的溫柔寄託。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 9,
@@ -436,7 +524,8 @@
 它不會告訴你未來的路該怎麼走，
 只是想隔著時空，
 輕輕抱抱現在的你。",
-        note: "安全空間（Safe Haven）：由內望外的視角，沙漏頂部流空，象徵情緒釋放完成與樹洞的召喚。"
+        note: "安全空間（Safe Haven）：由內望外的視角，沙漏頂部流空，象徵情緒釋放完成與樹洞的召喚。",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       },
       {
         id: 10,
@@ -451,22 +540,30 @@
 我會把樹洞入口，悄悄私訊遞給你。
 今晚先不要當大人了，
 來這裡做回會喊痛的孩子吧。",
-        note: "終局轉換（CTA）：留給讀者的空木椅與倒轉重新計時的沙漏。低門檻留言轉換指令，溫柔而有力。"
+        note: "終局轉換（CTA）：留給讀者的空木椅與倒轉重新計時的沙漏。點擊互動可開啟樹洞回信！",
+        posStyle: "margin-top: 12px; margin-bottom: auto;"
       }
     ];
 
     let currentIndex = 0;
     let showOverlay = true;
     let isSerif = true;
-    let currentPos = "top";
-    let lastDirection = 'right'; // 'right' or 'left'
+    let currentPos = "auto"; // "auto", "top", "center", "bottom"
+
+    // Carousel dragging physics state
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let dragOffset = 0;
+    let trackEl = null;
+    let containerEl = null;
 
     function init() {
+      renderTrackSlides();
       renderDots();
       renderReel();
       renderGrid();
-      updateSlide(0, 'none');
-      setupSwipeGestures();
+      setupContinuousDrag();
 
       // Keyboard navigation
       document.addEventListener('keydown', (e) => {
@@ -478,69 +575,199 @@
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => prefetchNextSlides());
       } else {
-        setTimeout(prefetchNextSlides, 500);
+        setTimeout(prefetchNextSlides, 400);
       }
     }
 
-    /* --- Touch & Mouse Drag Gesture Detection --- */
-    function setupSwipeGestures() {
-      const viewport = document.getElementById('slide-viewport');
-      if (!viewport) return;
+    function renderTrackSlides() {
+      trackEl = document.getElementById('carousel-track');
+      containerEl = document.getElementById('carousel-container');
 
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let isTouching = false;
-      let isMouseDown = false;
-      let mouseStartX = 0;
-      let mouseStartY = 0;
+      trackEl.innerHTML = slidesData.map((slide, idx) => `
+        <div class="carousel-slide" data-index="${idx}">
+          <img src="${slide.img}" alt="Slide ${slide.id}" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" />
 
-      // Touch events (Mobile phone / iPad)
-      viewport.addEventListener('touchstart', (e) => {
+          <!-- Integrated Text Overlay (Moves seamlessly WITH the image) -->
+          <div class="slide-overlay-box" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; opacity: ${showOverlay ? '1' : '0'}; transition: opacity 0.2s ease;">
+            
+            <!-- Top Header -->
+            <div class="text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
+              <div>
+                <span class="text-shadow-film" style="font-size: 11px; letter-spacing: 0.25em; color: #fbbf24; text-transform: uppercase; font-weight: 600; display: block;">
+                  ${slide.category}
+                </span>
+                <span style="font-size: 9px; letter-spacing: 0.15em; color: rgba(203, 213, 225, 0.8); font-family: monospace; display: block;">
+                  CHAPTER 0${slide.id}
+                </span>
+              </div>
+              <div style="text-align: right;">
+                <span style="font-size: 10px; letter-spacing: 0.15em; color: #94a3b8; font-family: monospace; opacity: 0.8;">
+                  35MM FILM
+                </span>
+              </div>
+            </div>
+
+            <!-- Content text block with soft readable backplate for contrast on bright photos -->
+            <div class="slide-content-text-wrap" style="${slide.posStyle} padding: 12px 14px; background: rgba(4, 7, 14, 0.48); backdrop-filter: blur(4px); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); max-width: 95%;">
+              <p class="slide-text-paragraph text-shadow-film ${isSerif ? 'font-serif-tc' : 'font-sans-tc'}" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #ffffff;">
+                ${slide.copy}
+              </p>
+
+              ${slide.id === 10 ? `
+                <div style="margin-top: 12px; display: flex; gap: 8px; pointer-events: auto;">
+                  <button onclick="openTreeHole('我今天很勇敢了')" style="padding: 6px 12px; border-radius: 8px; background: #f59e0b; color: #020617; font-weight: 700; border: none; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                    <span>💬 留下一句話</span>
+                  </button>
+                  <button onclick="openTreeHole('🌧️')" style="padding: 6px 10px; border-radius: 8px; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25); font-size: 11px; cursor: pointer;">
+                    🌧️ 投遞一場雨
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="text-scrim-bottom" style="display: flex; align-items: flex-end; justify-content: space-between; margin: -20px; padding: 20px 24px; margin-top: 0;">
+              <div style="font-size: 10px; color: rgba(203,213,225,0.7); letter-spacing: 0.15em; font-family: monospace;">
+                @hourglass_cafe
+              </div>
+              <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
+                <span>${idx === 9 ? '↺ 重新閱讀' : '‹ 左右滑動 ›'}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* --- REAL-TIME TOUCH & MOUSE DRAGGING (Follows finger like native app) --- */
+    function setupContinuousDrag() {
+      let isTouch = false;
+
+      // Touch handlers (Mobile)
+      containerEl.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-          isTouching = true;
+          isDragging = true;
+          isTouch = true;
+          startX = e.touches[0].clientX;
+          currentX = startX;
+          trackEl.style.transition = 'none'; // Instant follow
         }
       }, { passive: true });
 
-      viewport.addEventListener('touchend', (e) => {
-        if (!isTouching) return;
-        isTouching = false;
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-        evaluateSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+      containerEl.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        dragOffset = currentX - startX;
+
+        // Apply resistance if dragging past ends (rubber band effect)
+        let resistance = 1;
+        if ((currentIndex === 0 && dragOffset > 0) || (currentIndex === slidesData.length - 1 && dragOffset < 0)) {
+          resistance = 0.28;
+        }
+
+        const currentTranslate = -currentIndex * containerEl.offsetWidth;
+        trackEl.style.transform = `translateX(${currentTranslate + (dragOffset * resistance)}px)`;
       }, { passive: true });
 
-      // Mouse drag events (Desktop mouse / trackpad drag)
-      viewport.addEventListener('mousedown', (e) => {
-        isMouseDown = true;
-        mouseStartX = e.clientX;
-        mouseStartY = e.clientY;
+      containerEl.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        finalizeDrag();
+      }, { passive: true });
+
+      // Mouse drag handlers (Desktop)
+      containerEl.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        isTouch = false;
+        startX = e.clientX;
+        currentX = startX;
+        trackEl.style.transition = 'none';
       });
 
-      window.addEventListener('mouseup', (e) => {
-        if (!isMouseDown) return;
-        isMouseDown = false;
-        const mouseEndX = e.clientX;
-        const mouseEndY = e.clientY;
-        evaluateSwipe(mouseStartX, mouseStartY, mouseEndX, mouseEndY);
-      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging || isTouch) return;
+        currentX = e.clientX;
+        dragOffset = currentX - startX;
 
-      function evaluateSwipe(x1, y1, x2, y2) {
-        const diffX = x2 - x1;
-        const diffY = y2 - y1;
-        const minSwipeDistance = 35; // px
-
-        // Ensure horizontal intent is stronger than vertical scroll
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
-          if (diffX < 0) {
-            // Finger swiped LEFT -> Next page
-            nextSlide();
-          } else {
-            // Finger swiped RIGHT -> Previous page
-            prevSlide();
-          }
+        let resistance = 1;
+        if ((currentIndex === 0 && dragOffset > 0) || (currentIndex === slidesData.length - 1 && dragOffset < 0)) {
+          resistance = 0.28;
         }
+
+        const currentTranslate = -currentIndex * containerEl.offsetWidth;
+        trackEl.style.transform = `translateX(${currentTranslate + (dragOffset * resistance)}px)`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDragging || isTouch) return;
+        isDragging = false;
+        finalizeDrag();
+      });
+
+      function finalizeDrag() {
+        trackEl.style.transition = 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+        const threshold = containerEl.offsetWidth * 0.18; // 18% drag distance threshold
+
+        if (dragOffset < -threshold && currentIndex < slidesData.length - 1) {
+          // Dragged left -> Next
+          goToSlide(currentIndex + 1);
+        } else if (dragOffset > threshold && currentIndex > 0) {
+          // Dragged right -> Prev
+          goToSlide(currentIndex - 1);
+        } else if (dragOffset < -threshold && currentIndex === slidesData.length - 1) {
+          // On last slide dragged left -> offer replay or tree hole
+          openTreeHole('我今天很勇敢了');
+          goToSlide(currentIndex);
+        } else {
+          // Snap back to current
+          goToSlide(currentIndex);
+        }
+        dragOffset = 0;
+      }
+    }
+
+    function goToSlide(index) {
+      currentIndex = index;
+      const slideWidth = containerEl.offsetWidth;
+      trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      // Update badge & sidebar info
+      const slide = slidesData[currentIndex];
+      document.getElementById('slide-badge').innerText = `${slide.id} / 10`;
+      document.getElementById('detail-page-num').innerText = `PAGE 0${slide.id} / 10`;
+      document.getElementById('detail-title').innerText = slide.title;
+      document.getElementById('detail-copy-box').innerText = slide.copy;
+      document.getElementById('detail-note').innerHTML = `<strong>敘事作用</strong>：${slide.note}`;
+
+      // Show/Hide CTA on Page 10
+      const ctaBox = document.getElementById('detail-cta-box');
+      if (slide.id === 10) {
+        ctaBox.style.display = 'block';
+      } else {
+        ctaBox.style.display = 'none';
+      }
+
+      renderDots();
+      renderReel();
+    }
+
+    function prevSlide() {
+      if (currentIndex > 0) {
+        goToSlide(currentIndex - 1);
+      } else {
+        // Subtle bounce
+        trackEl.style.transform = `translateX(20px)`;
+        setTimeout(() => { trackEl.style.transform = `translateX(0)`; }, 180);
+      }
+    }
+
+    function nextSlide() {
+      if (currentIndex < slidesData.length - 1) {
+        goToSlide(currentIndex + 1);
+      } else {
+        // Last slide: open tree hole directly
+        openTreeHole('我今天很勇敢了');
       }
     }
 
@@ -554,14 +781,14 @@
     function renderDots() {
       const container = document.getElementById('pagination-dots');
       container.innerHTML = slidesData.map((_, idx) => `
-        <div onclick="goToSlide(${idx})" style="width: ${idx === currentIndex ? '12px' : '6px'}; height: 6px; border-radius: 9999px; background: ${idx === currentIndex ? '#fbbf24' : 'rgba(255,255,255,0.3)'}; cursor: pointer; transition: all 0.2s;"></div>
+        <div onclick="goToSlide(${idx})" style="width: ${idx === currentIndex ? '14px' : '6px'}; height: 6px; border-radius: 9999px; background: ${idx === currentIndex ? '#fbbf24' : 'rgba(255,255,255,0.3)'}; cursor: pointer; transition: all 0.25s;"></div>
       `).join('');
     }
 
     function renderReel() {
       const container = document.getElementById('thumbnails-reel');
       container.innerHTML = slidesData.map((slide, idx) => `
-        <button onclick="goToSlide(${idx})" style="flex-shrink: 0; width: 48px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid ${idx === currentIndex ? '#fbbf24' : 'transparent'}; opacity: ${idx === currentIndex ? '1' : '0.6'}; cursor: pointer; position: relative; padding: 0; background: #020617; transition: all 0.2s;">
+        <button onclick="goToSlide(${idx})" style="flex-shrink: 0; width: 48px; height: 64px; border-radius: 8px; overflow: hidden; border: 2px solid ${idx === currentIndex ? '#fbbf24' : 'transparent'}; opacity: ${idx === currentIndex ? '1' : '0.55'}; cursor: pointer; position: relative; padding: 0; background: #020617; transition: all 0.2s;">
           <img src="${slide.thumb}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
           <span style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.75); font-size: 9px; font-family: monospace; text-align: center; color: #fff; padding: 1px 0;">${slide.id}</span>
         </button>
@@ -591,78 +818,23 @@
       `).join('');
     }
 
-    function updateSlide(index, direction = 'right') {
-      currentIndex = index;
-      const slide = slidesData[index];
-
-      const imgEl = document.getElementById('current-slide-img');
-      imgEl.src = slide.img;
-
-      // Apply tactile slide transition animation
-      imgEl.classList.remove('anim-slide-right', 'anim-slide-left');
-      void imgEl.offsetWidth; // Trigger reflow
-      if (direction === 'right') {
-        imgEl.classList.add('anim-slide-right');
-      } else if (direction === 'left') {
-        imgEl.classList.add('anim-slide-left');
-      }
-
-      document.getElementById('slide-badge').innerText = `${slide.id} / 10`;
-      document.getElementById('overlay-category').innerText = slide.category;
-      document.getElementById('overlay-date').innerText = `CHAPTER 0${slide.id}`;
-      document.getElementById('overlay-text').innerText = slide.copy;
-
-      const contentBox = document.getElementById('overlay-content-box');
-      if (currentPos === "top") {
-        contentBox.style.marginTop = "12px";
-        contentBox.style.marginBottom = "auto";
-      } else if (currentPos === "center") {
-        contentBox.style.marginTop = "auto";
-        contentBox.style.marginBottom = "auto";
-      } else {
-        contentBox.style.marginTop = "auto";
-        contentBox.style.marginBottom = "12px";
-      }
-
-      document.getElementById('detail-page-num').innerText = `PAGE 0${slide.id} / 10`;
-      document.getElementById('detail-title').innerText = slide.title;
-      document.getElementById('detail-copy-box').innerText = slide.copy;
-      document.getElementById('detail-note').innerHTML = `<strong>敘事作用</strong>：${slide.note}`;
-
-      renderDots();
-      renderReel();
-    }
-
-    function prevSlide() {
-      const newIdx = (currentIndex - 1 + slidesData.length) % slidesData.length;
-      updateSlide(newIdx, 'left');
-    }
-
-    function nextSlide() {
-      const newIdx = (currentIndex + 1) % slidesData.length;
-      updateSlide(newIdx, 'right');
-    }
-
-    function goToSlide(idx) {
-      const direction = idx > currentIndex ? 'right' : 'left';
-      updateSlide(idx, direction);
-    }
-
     function goToSlideAndSwitch(idx) {
       setViewMode('single');
       goToSlide(idx);
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll back up to mockup
     }
 
     function toggleOverlay() {
       showOverlay = !showOverlay;
-      const overlay = document.getElementById('text-overlay-container');
+      const overlays = document.querySelectorAll('.slide-overlay-box');
       const label = document.getElementById('overlay-status-label');
+      overlays.forEach(el => {
+        el.style.opacity = showOverlay ? '1' : '0';
+      });
       if (showOverlay) {
-        overlay.style.opacity = "1";
         label.innerHTML = "● 顯示文案排版";
         label.style.color = "#34d399";
       } else {
-        overlay.style.opacity = "0";
         label.innerHTML = "○ 隱藏 (純攝影)";
         label.style.color = "#94a3b8";
       }
@@ -670,17 +842,25 @@
 
     function toggleFont() {
       isSerif = !isSerif;
-      const overlayText = document.getElementById('overlay-text');
+      const paragraphs = document.querySelectorAll('.slide-text-paragraph');
       const detailCopy = document.getElementById('detail-copy-box');
       const label = document.getElementById('font-status-label');
 
+      paragraphs.forEach(p => {
+        if (isSerif) {
+          p.classList.remove('font-sans-tc');
+          p.classList.add('font-serif-tc');
+        } else {
+          p.classList.remove('font-serif-tc');
+          p.classList.add('font-sans-tc');
+        }
+      });
+
       if (isSerif) {
-        overlayText.className = "text-shadow-film font-serif-tc";
         detailCopy.className = "font-serif-tc";
         label.innerHTML = "● 經典宋體 (Serif)";
         label.style.color = "#fcd34d";
       } else {
-        overlayText.className = "text-shadow-film font-sans-tc";
         detailCopy.className = "font-sans-tc";
         label.innerHTML = "● 現代黑體 (Sans)";
         label.style.color = "#38bdf8";
@@ -689,17 +869,28 @@
 
     function cyclePosition() {
       const label = document.getElementById('pos-status-label');
-      if (currentPos === "top") {
+      const textWraps = document.querySelectorAll('.slide-content-text-wrap');
+
+      if (currentPos === "auto") {
+        currentPos = "top";
+        label.innerText = "● 置頂留白";
+        textWraps.forEach(w => { w.style.marginTop = "10px"; w.style.marginBottom = "auto"; });
+      } else if (currentPos === "top") {
         currentPos = "center";
         label.innerText = "● 置中對齊";
+        textWraps.forEach(w => { w.style.marginTop = "auto"; w.style.marginBottom = "auto"; });
       } else if (currentPos === "center") {
         currentPos = "bottom";
         label.innerText = "● 靠底留白";
+        textWraps.forEach(w => { w.style.marginTop = "auto"; w.style.marginBottom = "10px"; });
       } else {
-        currentPos = "top";
-        label.innerText = "● 置頂留白";
+        currentPos = "auto";
+        label.innerText = "● 自動最適版型";
+        textWraps.forEach((w, i) => {
+          w.style.marginTop = "12px";
+          w.style.marginBottom = "auto";
+        });
       }
-      updateSlide(currentIndex, 'none');
     }
 
     function setViewMode(mode) {
@@ -742,6 +933,70 @@
         }, 1800);
       });
     }
+
+    /* --- Interactive Tree Hole Modal Logic --- */
+    function openTreeHole(keyword) {
+      const modal = document.getElementById('tree-hole-modal');
+      const triggerLabel = document.getElementById('modal-reply-trigger');
+      triggerLabel.innerText = `RE: ${keyword || '我今天很勇敢了'}`;
+      modal.classList.add('open');
+    }
+
+    function closeTreeHole() {
+      const modal = document.getElementById('tree-hole-modal');
+      modal.classList.remove('open');
+    }
+
+    function closeModalOnBg(e) {
+      if (e.target.id === 'tree-hole-modal') {
+        closeTreeHole();
+      }
+    }
+
+    /* --- Share Story Feature --- */
+    function shareStory() {
+      const shareData = {
+        title: '⏳ 時光沙漏 - 10 頁 IG 輪播貼文',
+        text: '不知從什麼時候開始，我們都學會了四下無人才敢嘆氣… 今晚先不要當大人了，來這裡做回會喊痛的孩子吧。',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          showToast('✓ 已複製分享連結，快傳給同學吧！');
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2400);
+    }
+
+    function likePost(el) {
+      if (el.innerText === '🤍') {
+        el.innerText = '❤️';
+        showToast('❤️ 已收到你的喜歡，溫暖會一直留著');
+      } else {
+        el.innerText = '🤍';
+      }
+    }
+
+    function bookmarkPost(el) {
+      showToast('🔖 已為你在時光沙漏收藏此篇故事');
+    }
+
+    // Handle window resize to recalculate slider offset
+    window.addEventListener('resize', () => {
+      if (trackEl && containerEl) {
+        trackEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+    });
 
     init();
   </script>
