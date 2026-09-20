@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>時光沙漏 - 10 頁 IG 輪播貼文排版</title>
 
   <!-- Preload Critical LCP Image for instant first frame -->
@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* CSS Reset & System Fallbacks */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: #090d16;
@@ -35,10 +34,10 @@
       font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif;
     }
     .text-shadow-film {
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.95);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.95);
     }
     .text-scrim-top {
-      background: linear-gradient(180deg, rgba(8, 12, 20, 0.88) 0%, rgba(8, 12, 20, 0.5) 60%, rgba(8, 12, 20, 0) 100%);
+      background: linear-gradient(180deg, rgba(8, 12, 20, 0.90) 0%, rgba(8, 12, 20, 0.55) 60%, rgba(8, 12, 20, 0) 100%);
     }
     .text-scrim-bottom {
       background: linear-gradient(0deg, rgba(8, 12, 20, 0.92) 0%, rgba(8, 12, 20, 0.6) 60%, rgba(8, 12, 20, 0) 100%);
@@ -56,78 +55,62 @@
       background-size: 3px 3px;
     }
 
-    /* Layout Utility Classes */
+    /* Swipe & Interaction Styles */
+    .touch-viewport {
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      cursor: grab;
+    }
+    .touch-viewport:active {
+      cursor: grabbing;
+    }
+
+    /* Animations for smooth slide switching */
+    @keyframes slideFromRight {
+      0% { opacity: 0.4; transform: translateX(24px) scale(0.98); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes slideFromLeft {
+      0% { opacity: 0.4; transform: translateX(-24px) scale(0.98); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    .anim-slide-right {
+      animation: slideFromRight 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .anim-slide-left {
+      animation: slideFromLeft 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Common classes */
     .w-full { width: 100%; }
     .max-w-4xl { max-width: 56rem; }
-    .max-w-390 { max-width: 390px; }
-    .flex { display: flex; }
-    .flex-col { flex-direction: column; }
-    .items-center { align-items: center; }
-    .items-start { align-items: flex-start; }
-    .justify-between { justify-content: space-between; }
-    .justify-center { justify-content: center; }
-    .gap-1 { gap: 0.25rem; }
-    .gap-2 { gap: 0.5rem; }
-    .gap-3 { gap: 0.75rem; }
-    .gap-4 { gap: 1rem; }
-    .gap-6 { gap: 1.5rem; }
-    .border { border-width: 1px; }
-    .border-b { border-bottom-width: 1px; }
-    .border-t { border-top-width: 1px; }
-    .border-slate-800 { border-color: #1e293b; }
-    .border-white-10 { border-color: rgba(255, 255, 255, 0.1); }
-    .border-white-15 { border-color: rgba(255, 255, 255, 0.15); }
-    .rounded-xl { border-radius: 0.75rem; }
-    .rounded-2xl { border-radius: 1rem; }
-    .rounded-3xl { border-radius: 1.5rem; }
-    .rounded-full { border-radius: 9999px; }
-    .bg-black { background-color: #000; }
-    .bg-slate-900 { background-color: #0f172a; }
-    .bg-slate-950 { background-color: #020617; }
-    .bg-amber-500 { background-color: #f59e0b; }
-    .text-amber-300 { color: #fcd34d; }
-    .text-amber-400 { color: #fbbf24; }
-    .text-emerald-400 { color: #34d399; }
-    .text-sky-300 { color: #7dd3fc; }
-    .text-sky-400 { color: #38bdf8; }
-    .text-slate-300 { color: #cbd5e1; }
-    .text-slate-400 { color: #94a3b8; }
-    .text-white { color: #ffffff; }
-    .text-xs { font-size: 0.75rem; line-height: 1rem; }
-    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-    .text-base { font-size: 1rem; line-height: 1.5rem; }
-    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-    .font-semibold { font-weight: 600; }
-    .font-bold { font-weight: 700; }
     .overflow-hidden { overflow: hidden; }
     .relative { position: relative; }
     .absolute { position: absolute; }
     .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
     .cursor-pointer { cursor: pointer; }
-    .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 250ms; }
-    .transition-opacity { transition: opacity 0.25s ease-in-out; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .aspect-3-4 { aspect-ratio: 3 / 4; }
-    .img-fade { transition: opacity 0.3s ease; }
-    .img-loading { opacity: 0.4; filter: blur(4px); }
   </style>
 </head>
 <body>
 
   <!-- Header Section -->
-  <header class="w-full max-w-4xl flex flex-col justify-between gap-4 border-b border-slate-800" style="margin-bottom: 20px; padding-bottom: 16px;">
+  <header class="w-full max-w-4xl" style="display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid #1e293b; margin-bottom: 20px; padding-bottom: 16px;">
     <div style="display: flex; flex-direction: column; gap: 4px;">
       <div style="display: flex; align-items: center; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #fbbf24; font-weight: 600;">
         <span>35mm Film Storyboard</span>
         <span>•</span>
-        <span>Fast Loading (300KB initial payload)</span>
+        <span>手指可直接左右滑動</span>
       </div>
-      <h1 class="font-serif-tc font-bold text-white" style="font-size: 1.65rem; display: flex; align-items: center; gap: 8px;">
+      <h1 class="font-serif-tc" style="font-size: 1.65rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
         <span>⏳《時光沙漏》10 頁 IG 輪播貼文排版</span>
       </h1>
-      <p class="text-xs text-slate-400">
-        九〇年代台灣質樸底片色調 • 琥珀溫光與雨夜藍調 • 已進行輕量化效能加速
+      <p style="font-size: 13px; color: #94a3b8;">
+        九〇年代台灣質樸底片色調 • 琥珀溫光與雨夜藍調 • 支援手指滑動、鍵盤方向鍵與按鈕切換
       </p>
     </div>
 
@@ -152,7 +135,7 @@
       <div style="width: 100%; max-width: 390px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center;">
 
         <!-- IG Post Frame -->
-        <div class="w-full bg-black rounded-3xl overflow-hidden relative film-grain select-none" style="border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);">
+        <div class="w-full film-grain" style="background: #000; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; user-select: none;">
 
           <!-- IG Top Navigation Bar -->
           <div style="padding: 10px 16px; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 20; position: relative;">
@@ -172,14 +155,14 @@
             </div>
           </div>
 
-          <!-- The Visual Canvas (3:4 aspect ratio) -->
-          <div class="relative w-full aspect-3-4 overflow-hidden bg-slate-950" style="display: flex; align-items: center; justify-content: center;">
+          <!-- The Visual Canvas (Touch & Drag Enabled) -->
+          <div id="slide-viewport" class="relative w-full aspect-3-4 overflow-hidden touch-viewport" style="background: #020617; display: flex; align-items: center; justify-content: center;">
             
             <!-- Slide Image -->
-            <img id="current-slide-img" src="./slide_01.jpg" alt="Slide Image" class="w-full img-fade" style="height: 100%; object-fit: cover;">
+            <img id="current-slide-img" src="./slide_01.jpg" alt="Slide Image" draggable="false" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
 
-            <!-- Text Overlay Container -->
-            <div id="text-overlay-container" class="absolute inset-0 transition-opacity" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none;">
+            <!-- Text Overlay Container (pointer-events: none so swipes pass right through) -->
+            <div id="text-overlay-container" class="absolute inset-0" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none; transition: opacity 0.2s ease;">
               
               <!-- Top Header / Page Index Watermark -->
               <div id="overlay-top-header" class="w-full text-scrim-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin: -20px; padding: 20px 24px; margin-bottom: 0;">
@@ -200,7 +183,7 @@
 
               <!-- Main Copywriting Block -->
               <div id="overlay-content-box" style="margin-top: 12px; margin-bottom: auto; padding: 12px 6px;">
-                <p id="overlay-text" class="text-shadow-film font-serif-tc text-white" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left;">
+                <p id="overlay-text" class="text-shadow-film font-serif-tc" style="font-size: 1rem; line-height: 1.7; letter-spacing: 0.04em; white-space: pre-line; text-align: left; color: #fff;">
                   不知從什麼時候開始。
                   我們都學會了，
                   只有在四下無人的時候，
@@ -214,17 +197,16 @@
                   @hourglass_cafe
                 </div>
                 <div style="font-size: 11px; color: #fcd34d; font-family: monospace; display: flex; align-items: center; gap: 6px;">
-                  <span>SWIPE</span>
-                  <span style="font-size: 12px;">→</span>
+                  <span>‹ 左右滑動 ›</span>
                 </div>
               </div>
             </div>
 
             <!-- Slide Navigation Floating Arrows -->
-            <button onclick="prevSlide()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 18px;">
+            <button onclick="prevSlide()" aria-label="上一頁" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 20px; touch-action: manipulation;">
               ‹
             </button>
-            <button onclick="nextSlide()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.55); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 18px;">
+            <button onclick="nextSlide()" aria-label="下一頁" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; font-size: 20px; touch-action: manipulation;">
               ›
             </button>
           </div>
@@ -243,7 +225,7 @@
 
         </div>
 
-        <!-- Thumbnails Reel (uses lightweight 10KB thumbs) -->
+        <!-- Thumbnails Reel -->
         <div id="thumbnails-reel" class="w-full no-scrollbar" style="margin-top: 14px; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px;"></div>
       </div>
 
@@ -251,12 +233,12 @@
       <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 16px;">
 
         <!-- Controls Toolbar Card -->
-        <div class="rounded-2xl" style="background: rgba(15, 23, 42, 0.85); border: 1px solid #1e293b; padding: 16px;">
+        <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid #1e293b; border-radius: 16px; padding: 16px;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
             <span style="font-size: 12px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px;">
               <span>🛠️ 排版預覽控制</span>
             </span>
-            <span style="font-size: 11px; color: #94a3b8;">鍵盤 ← → 可切換頁面</span>
+            <span style="font-size: 11px; color: #94a3b8;">可直接手指滑動 / 鍵盤 ← →</span>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px;">
@@ -281,12 +263,12 @@
         </div>
 
         <!-- Slide Detail & Text Copy Card -->
-        <div class="rounded-2xl" style="background: rgba(15, 23, 42, 0.85); border: 1px solid #1e293b; padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid #1e293b; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px;">
           
           <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 12px;">
             <div>
               <span id="detail-page-num" style="font-size: 11px; font-family: monospace; color: #fbbf24; letter-spacing: 0.1em;">PAGE 01 / 10</span>
-              <h2 id="detail-title" class="font-serif-tc font-bold text-white" style="font-size: 1.15rem; margin-top: 2px;">
+              <h2 id="detail-title" class="font-serif-tc" style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-top: 2px;">
                 第 1 頁：起點（雨夜車窗）
               </h2>
             </div>
@@ -477,12 +459,14 @@
     let showOverlay = true;
     let isSerif = true;
     let currentPos = "top";
+    let lastDirection = 'right'; // 'right' or 'left'
 
     function init() {
       renderDots();
       renderReel();
       renderGrid();
-      updateSlide(0);
+      updateSlide(0, 'none');
+      setupSwipeGestures();
 
       // Keyboard navigation
       document.addEventListener('keydown', (e) => {
@@ -494,7 +478,69 @@
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => prefetchNextSlides());
       } else {
-        setTimeout(prefetchNextSlides, 600);
+        setTimeout(prefetchNextSlides, 500);
+      }
+    }
+
+    /* --- Touch & Mouse Drag Gesture Detection --- */
+    function setupSwipeGestures() {
+      const viewport = document.getElementById('slide-viewport');
+      if (!viewport) return;
+
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let isTouching = false;
+      let isMouseDown = false;
+      let mouseStartX = 0;
+      let mouseStartY = 0;
+
+      // Touch events (Mobile phone / iPad)
+      viewport.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          isTouching = true;
+        }
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        if (!isTouching) return;
+        isTouching = false;
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        evaluateSwipe(touchStartX, touchStartY, touchEndX, touchEndY);
+      }, { passive: true });
+
+      // Mouse drag events (Desktop mouse / trackpad drag)
+      viewport.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        mouseStartX = e.clientX;
+        mouseStartY = e.clientY;
+      });
+
+      window.addEventListener('mouseup', (e) => {
+        if (!isMouseDown) return;
+        isMouseDown = false;
+        const mouseEndX = e.clientX;
+        const mouseEndY = e.clientY;
+        evaluateSwipe(mouseStartX, mouseStartY, mouseEndX, mouseEndY);
+      });
+
+      function evaluateSwipe(x1, y1, x2, y2) {
+        const diffX = x2 - x1;
+        const diffY = y2 - y1;
+        const minSwipeDistance = 35; // px
+
+        // Ensure horizontal intent is stronger than vertical scroll
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minSwipeDistance) {
+          if (diffX < 0) {
+            // Finger swiped LEFT -> Next page
+            nextSlide();
+          } else {
+            // Finger swiped RIGHT -> Previous page
+            prevSlide();
+          }
+        }
       }
     }
 
@@ -545,19 +591,21 @@
       `).join('');
     }
 
-    function updateSlide(index) {
+    function updateSlide(index, direction = 'right') {
       currentIndex = index;
       const slide = slidesData[index];
 
       const imgEl = document.getElementById('current-slide-img');
-      imgEl.classList.add('img-loading');
-      
-      const newImg = new Image();
-      newImg.src = slide.img;
-      newImg.onload = () => {
-        imgEl.src = slide.img;
-        imgEl.classList.remove('img-loading');
-      };
+      imgEl.src = slide.img;
+
+      // Apply tactile slide transition animation
+      imgEl.classList.remove('anim-slide-right', 'anim-slide-left');
+      void imgEl.offsetWidth; // Trigger reflow
+      if (direction === 'right') {
+        imgEl.classList.add('anim-slide-right');
+      } else if (direction === 'left') {
+        imgEl.classList.add('anim-slide-left');
+      }
 
       document.getElementById('slide-badge').innerText = `${slide.id} / 10`;
       document.getElementById('overlay-category').innerText = slide.category;
@@ -587,21 +635,22 @@
 
     function prevSlide() {
       const newIdx = (currentIndex - 1 + slidesData.length) % slidesData.length;
-      updateSlide(newIdx);
+      updateSlide(newIdx, 'left');
     }
 
     function nextSlide() {
       const newIdx = (currentIndex + 1) % slidesData.length;
-      updateSlide(newIdx);
+      updateSlide(newIdx, 'right');
     }
 
     function goToSlide(idx) {
-      updateSlide(idx);
+      const direction = idx > currentIndex ? 'right' : 'left';
+      updateSlide(idx, direction);
     }
 
     function goToSlideAndSwitch(idx) {
       setViewMode('single');
-      updateSlide(idx);
+      goToSlide(idx);
     }
 
     function toggleOverlay() {
@@ -626,12 +675,12 @@
       const label = document.getElementById('font-status-label');
 
       if (isSerif) {
-        overlayText.className = "text-shadow-film font-serif-tc text-white";
+        overlayText.className = "text-shadow-film font-serif-tc";
         detailCopy.className = "font-serif-tc";
         label.innerHTML = "● 經典宋體 (Serif)";
         label.style.color = "#fcd34d";
       } else {
-        overlayText.className = "text-shadow-film font-sans-tc text-white";
+        overlayText.className = "text-shadow-film font-sans-tc";
         detailCopy.className = "font-sans-tc";
         label.innerHTML = "● 現代黑體 (Sans)";
         label.style.color = "#38bdf8";
@@ -650,7 +699,7 @@
         currentPos = "top";
         label.innerText = "● 置頂留白";
       }
-      updateSlide(currentIndex);
+      updateSlide(currentIndex, 'none');
     }
 
     function setViewMode(mode) {
