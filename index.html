@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>時光沙漏 - 10 頁 IG 輪播貼文排版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .font-serif-tc {
+      font-family: 'Noto Serif TC', 'Songti TC', Georgia, serif;
+    }
+    .font-sans-tc {
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .text-shadow-film {
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.9);
+    }
+    .text-scrim-top {
+      background: linear-gradient(180deg, rgba(10, 15, 25, 0.82) 0%, rgba(10, 15, 25, 0.5) 50%, rgba(10, 15, 25, 0) 100%);
+    }
+    .text-scrim-bottom {
+      background: linear-gradient(0deg, rgba(10, 15, 25, 0.9) 0%, rgba(10, 15, 25, 0.6) 60%, rgba(10, 15, 25, 0) 100%);
+    }
+    .film-grain {
+      position: relative;
+    }
+    .film-grain::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: radial-gradient(black 1px, transparent 0);
+      background-size: 3px 3px;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans-tc min-h-screen antialiased p-3 sm:p-6 md:p-8 flex flex-col items-center">
+
+  <!-- Header Section -->
+  <header class="w-full max-w-4xl mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+    <div>
+      <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-semibold mb-1">
+        <span>35mm Film Storyboard</span>
+        <span>•</span>
+        <span>Instagram Carousel</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-bold font-serif-tc text-white flex items-center gap-2">
+        <span>⏳《時光沙漏》10 頁輪播貼文排版</span>
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-400 mt-1">
+        九〇年代台灣質樸底片色調 • 琥珀溫光與雨夜藍調 • 心理共感敘事
+      </p>
+    </div>
+
+    <!-- View Mode Selector -->
+    <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl gap-1 text-xs">
+      <button id="mode-single-btn" onclick="setViewMode('single')" class="px-3 py-1.5 rounded-lg font-medium transition-all bg-amber-500 text-slate-950 shadow-sm">
+        📱 單頁排版預覽
+      </button>
+      <button id="mode-grid-btn" onclick="setViewMode('grid')" class="px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+        📑 10 頁全景總覽
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-4xl flex-1 flex flex-col items-center">
+
+    <!-- SINGLE SLIDE VIEW -->
+    <div id="single-view" class="w-full flex flex-col md:flex-row gap-6 items-start justify-center">
+
+      <!-- Left Column: The Instagram Mockup Card -->
+      <div class="w-full md:w-[420px] flex-shrink-0 flex flex-col items-center">
+
+        <!-- IG Post Frame -->
+        <div class="w-full max-w-[390px] bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/15 relative film-grain select-none">
+
+          <!-- IG Top Navigation Bar -->
+          <div class="px-4 py-2.5 bg-black/80 backdrop-blur-md flex items-center justify-between text-white border-b border-white/10 z-20 relative">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-600 to-amber-300 p-[1.5px]">
+                <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-[10px] font-bold">
+                  ⏳
+                </div>
+              </div>
+              <div class="leading-none">
+                <span class="text-xs font-semibold block">hourglass_cafe</span>
+                <span class="text-[9px] text-gray-400">時光沙漏 • 90s Taiwan</span>
+              </div>
+            </div>
+            <div class="text-[11px] font-mono bg-white/10 px-2 py-0.5 rounded-full text-amber-300" id="slide-badge">
+              1 / 10
+            </div>
+          </div>
+
+          <!-- The Visual Canvas (3:4 aspect ratio) -->
+          <div class="relative w-full aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center group">
+            
+            <!-- Slide Image -->
+            <img id="current-slide-img" src="./slide_01.jpg" alt="Slide Image" class="w-full h-full object-cover transition-transform duration-500">
+
+            <!-- Text Overlay Container -->
+            <div id="text-overlay-container" class="absolute inset-0 flex flex-col justify-between p-5 pointer-events-none transition-opacity duration-300">
+              
+              <!-- Top Header / Page Index Watermark -->
+              <div id="overlay-top-header" class="w-full flex justify-between items-start text-scrim-top -m-5 p-6 mb-0">
+                <div class="space-y-0.5">
+                  <span id="overlay-category" class="text-[11px] tracking-[0.25em] text-amber-400 uppercase font-semibold block text-shadow-film">
+                    起點
+                  </span>
+                  <span id="overlay-date" class="text-[9px] tracking-widest text-slate-300/80 font-mono block">
+                    CHAPTER 01
+                  </span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] tracking-widest text-slate-400 font-mono opacity-80">
+                    35MM FILM
+                  </span>
+                </div>
+              </div>
+
+              <!-- Main Copywriting Block -->
+              <div id="overlay-content-box" class="my-auto py-4 px-2">
+                <p id="overlay-text" class="text-white text-base sm:text-lg leading-relaxed font-serif-tc font-normal tracking-wide text-shadow-film whitespace-pre-line text-left">
+                  不知從什麼時候開始。
+                  我們都學會了，
+                  只有在四下無人的時候，
+                  才敢輕輕嘆一口氣。
+                </p>
+              </div>
+
+              <!-- Bottom Footer -->
+              <div id="overlay-bottom-footer" class="w-full flex items-end justify-between text-scrim-bottom -m-5 p-6 mt-0">
+                <div class="text-[10px] text-slate-300/70 tracking-widest font-mono">
+                  @hourglass_cafe
+                </div>
+                <div class="text-[11px] text-amber-300/90 font-mono flex items-center gap-1.5">
+                  <span>SWIPE</span>
+                  <span class="text-xs">→</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide Navigation Floating Arrows -->
+            <button onclick="prevSlide()" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all opacity-80 hover:opacity-100 z-30">
+              ‹
+            </button>
+            <button onclick="nextSlide()" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all opacity-80 hover:opacity-100 z-30">
+              ›
+            </button>
+          </div>
+
+          <!-- IG Footer Controls -->
+          <div class="px-4 py-3 bg-black text-white text-xs border-t border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="cursor-pointer hover:text-red-400">🤍</span>
+              <span class="cursor-pointer hover:text-amber-400">💬</span>
+              <span class="cursor-pointer hover:text-blue-400">↗️</span>
+            </div>
+            <!-- Pagination Dots -->
+            <div class="flex items-center gap-1" id="pagination-dots"></div>
+            <span class="cursor-pointer hover:text-amber-400 text-sm">🔖</span>
+          </div>
+
+        </div>
+
+        <!-- Thumbnails Reel -->
+        <div class="w-full mt-4 flex gap-1.5 overflow-x-auto pb-2 no-scrollbar" id="thumbnails-reel"></div>
+      </div>
+
+      <!-- Right Column: Settings, Copywriting & Context -->
+      <div class="flex-1 w-full flex flex-col gap-4">
+
+        <!-- Controls Toolbar Card -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-semibold text-white flex items-center gap-1.5">
+              <span>🛠️ 排版預覽控制</span>
+            </span>
+            <span class="text-[11px] text-slate-400">支援鍵盤 ← → 切換</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+            <!-- Toggle Text Overlay -->
+            <button id="toggle-overlay-btn" onclick="toggleOverlay()" class="p-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-750 text-left transition-colors">
+              <span class="text-slate-400 block text-[10px]">文字疊層</span>
+              <span id="overlay-status-label" class="font-semibold text-emerald-400">● 顯示文案排版</span>
+            </button>
+
+            <!-- Toggle Font Family -->
+            <button onclick="toggleFont()" class="p-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-750 text-left transition-colors">
+              <span class="text-slate-400 block text-[10px]">字體風格</span>
+              <span id="font-status-label" class="font-semibold text-amber-300">● 經典宋體 (Serif)</span>
+            </button>
+
+            <!-- Text Position Preset -->
+            <button onclick="cyclePosition()" class="p-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-750 text-left transition-colors">
+              <span class="text-slate-400 block text-[10px]">文字留白位置</span>
+              <span id="pos-status-label" class="font-semibold text-sky-300">● 置中微偏上</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide Detail & Text Copy Card -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-sm flex flex-col gap-4">
+          
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <span id="detail-page-num" class="text-xs font-mono text-amber-400 tracking-wider">PAGE 01 / 10</span>
+              <h2 id="detail-title" class="text-lg font-bold font-serif-tc text-white mt-0.5">
+                第 1 頁：起點（雨夜車窗）
+              </h2>
+            </div>
+            
+            <button onclick="copyCurrentCopy()" class="px-3 py-1.5 text-xs rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 font-medium transition-all flex items-center gap-1.5" id="copy-btn">
+              <span>📋 複製本頁文案</span>
+            </button>
+          </div>
+
+          <!-- Exact Page Text -->
+          <div>
+            <label class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5 block">
+              本頁精準文案（已對齊留白位置）：
+            </label>
+            <div id="detail-copy-box" class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 text-sm leading-relaxed whitespace-pre-line font-serif-tc">
+              不知從什麼時候開始。
+              我們都學會了，只有在四下無人的時候，才敢輕輕嘆一口氣。
+            </div>
+          </div>
+
+          <!-- Narrative Function -->
+          <div class="text-xs bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-amber-200/90 leading-relaxed flex items-start gap-2">
+            <span class="text-base leading-none">💡</span>
+            <div id="detail-note">
+              <strong>敘事作用</strong>：鉤子（Hook）。在黑夜與潮濕的車窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- GRID / ALL SLIDES VIEW -->
+    <div id="grid-view" class="w-full hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+
+  </main>
+
+  <script>
+    const slidesData = [
+      {
+        id: 1,
+        title: "第 1 頁：起點（雨夜車窗）",
+        category: "起點 • Hook",
+        img: "./slide_01.jpg",
+        copy: "不知從什麼時候開始。\n我們都學會了，\n只有在四下無人的時候，\n才敢輕輕嘆一口氣。",
+        note: "鉤子（Hook）：在黑夜與潮濕的窗前營造安靜、壓抑的氛圍，直接刺中成年人「四下無人才敢嘆氣」的孤獨共感。角落的沙漏象徵時間靜止。"
+      },
+      {
+        id: 2,
+        title: "第 2 頁：偽裝（暗處的手機微光）",
+        category: "偽裝 • Agitation",
+        img: "./slide_02.jpg",
+        copy: "這幾年，我一直很努力。\n想扮演好一個情緒穩定的成年人。\n\n難過了就滑滑手機一笑帶過。\n習慣只報喜不報憂，笑著說：\n「我最近很好啊，不用擔心。」",
+        note: "痛點深化：黑暗中只有手機螢幕的光，點出當代人「情緒穩定」的偽裝與無奈，字置於上方大片幽暗留白處。"
+      },
+      {
+        id: 3,
+        title: "第 3 頁：墜落（冷掉的晚餐與鑰匙）",
+        category: "墜落 • Peak Tension",
+        img: "./slide_03.jpg",
+        copy: "就在按下「結束通話」的那一秒。\n看著吃著結塊、冷掉的晚餐。\n\n突然覺得整個人被掏空了。\n害怕自己會在這個無聲的房間裡，\n一直往下墜。",
+        note: "壓迫點：冷便當、一串生鏽鑰匙與掛斷的電話，是生活潰堤的具象化。沙漏見證沉寂。"
+      },
+      {
+        id: 4,
+        title: "第 4 頁：逃離（推開舊木門）",
+        category: "逃離 • The Turning",
+        img: "./slide_04.jpg",
+        copy: "我抓起鑰匙逃出門，\n在街上沒有目的地走著。\n卻遇上一場突然的大雨。\n\n為了躲雨，我狼狽地推開了\n「時光沙漏」的門。",
+        note: "轉折點（Turn）：冷藍雨夜與室內溫暖鎢絲光的強烈對比。磨石子地板與推開門的手，象徵避難所的抵達。"
+      },
+      {
+        id: 5,
+        title: "第 5 頁：接納（手沖咖啡的蒸氣）",
+        category: "接納 • Warmth",
+        img: "./slide_05.jpg",
+        copy: "店裡很安靜。\n吧檯正在手沖咖啡，\n熱水一圈一圈落下。\n\n一股很深、很暖的咖啡焦香，\n飄了過來。",
+        note: "感官撫慰：熱氣與手沖水流，將焦慮的時間定格。暖調琥珀燈光讓緊繃的神經放鬆。"
+      },
+      {
+        id: 6,
+        title: "第 6 頁：觸發（舊卡帶收音機）",
+        category: "觸發 • Nostalgia",
+        img: "./slide_06.jpg",
+        copy: "角落的木櫃上，\n放著一台很舊的卡帶收音機。\n正播著帶點雜訊的老歌。\n\n聞著那陣咖啡香，盯著那台舊收音機。\n視線突然就模糊了。",
+        note: "記憶觸發點（普魯斯特效應）：九〇年代老卡帶收音機與雜訊老歌，開啟深層記憶的鎖。"
+      },
+      {
+        id: 7,
+        title: "第 7 頁：高潮（阿公的溫熱手）",
+        category: "高潮 • Emotional Peak",
+        img: "./slide_07.jpg",
+        copy: "阿公也有一台一模一樣的。\n只要我一受委屈、一哭。\n他就會用那雙沾著咖啡香氣、\n粗糙又溫熱的手。\n把我輕輕抱進懷里，拍著我的背說：\n\n「憨孫，賣考，阿公底家啦。」",
+        note: "情感核心高潮：阿公粗糙溫熱的手、缺角的老馬克杯。台語對白引爆全篇最強情感共鳴與淚點。"
+      },
+      {
+        id: 8,
+        title: "第 8 頁：現實（桌上的淚痕）",
+        category: "現實 • Epiphany",
+        img: "./slide_08.jpg",
+        copy: "可是阿公，我現在長大了。\n卻再也找不到那個，\n可以讓我放心大哭的地方了。\n\n老物件最殘忍，卻也最溫柔的地方在於——\n它們靜靜地留了下來，\n代替那些已經不在的人，\n看著我們受傷，看著我們長大。",
+        note: "哲思收攏：雙手握杯與一滴淚痕。道出成長的代價與老物件的溫柔寄託。"
+      },
+      {
+        id: 9,
+        title: "第 9 頁：解藥（模糊的溫暖雨窗）",
+        category: "解藥 • Catharsis",
+        img: "./slide_09.jpg",
+        copy: "如果你最近也覺得，撐得有點辛苦。\n我們在「時光沙漏」為你留了一個位子。\n也準備了一個專屬的《時光樹洞》。\n\n它不會告訴你未來的路該怎麼走，\n只是想隔著時空，\n輕輕抱抱現在的你。",
+        note: "安全空間（Safe Haven）：由內望外的視角，沙漏頂部流空，象徵情緒釋放完成與樹洞的召喚。"
+      },
+      {
+        id: 10,
+        title: "第 10 頁：行動呼籲（留給你的位子）",
+        category: "行動呼籲 • CTA",
+        img: "./slide_10.jpg",
+        copy: "👇 在底下留言一句：\n「我今天很勇敢了」\n或者，留下一個 「🌧️」\n\n我會把樹洞入口，悄悄私訊遞給你。\n今晚先不要當大人了，\n來這裡做回會喊痛的孩子吧。",
+        note: "終局轉換（CTA）：留給讀者的空木椅與倒轉重新計時的沙漏。低門檻留言轉換指令，溫柔而有力。"
+      }
+    ];
+
+    let currentIndex = 0;
+    let showOverlay = true;
+    let isSerif = true;
+    let currentPos = "top";
+
+    function init() {
+      renderDots();
+      renderReel();
+      renderGrid();
+      updateSlide(0);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      });
+    }
+
+    function renderDots() {
+      const container = document.getElementById('pagination-dots');
+      container.innerHTML = slidesData.map((_, idx) => `
+        <div onclick="goToSlide(${idx})" class="w-1.5 h-1.5 rounded-full cursor-pointer transition-all ${idx === currentIndex ? 'bg-amber-400 w-3' : 'bg-white/30 hover:bg-white/60'}"></div>
+      `).join('');
+    }
+
+    function renderReel() {
+      const container = document.getElementById('thumbnails-reel');
+      container.innerHTML = slidesData.map((slide, idx) => `
+        <button onclick="goToSlide(${idx})" class="flex-shrink-0 w-12 h-16 rounded-lg overflow-hidden border-2 transition-all relative ${idx === currentIndex ? 'border-amber-400 scale-105 shadow-md shadow-amber-500/20' : 'border-transparent opacity-60 hover:opacity-100'}">
+          <img src="${slide.img}" class="w-full h-full object-cover" />
+          <span class="absolute bottom-0 inset-x-0 bg-black/70 text-[9px] font-mono text-center py-0.5 text-white">${slide.id}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('grid-view');
+      grid.innerHTML = slidesData.map((slide, idx) => `
+        <div onclick="goToSlideAndSwitch(${idx})" class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden cursor-pointer hover:border-amber-400/50 hover:shadow-xl transition-all group flex flex-col">
+          <div class="relative aspect-[3/4] overflow-hidden bg-slate-950">
+            <img src="${slide.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/50 p-3 flex flex-col justify-between">
+              <span class="text-[10px] font-mono bg-black/60 backdrop-blur-sm text-amber-300 px-2 py-0.5 rounded-full self-start">
+                #${slide.id} ${slide.category.split('•')[0]}
+              </span>
+              <p class="text-[11px] text-white font-serif-tc text-shadow-film line-clamp-3">
+                ${slide.copy.split('\n\n')[0]}
+              </p>
+            </div>
+          </div>
+          <div class="p-3 bg-slate-900/60 border-t border-slate-800 flex-1 flex flex-col justify-between">
+            <h3 class="text-xs font-bold text-white mb-1 line-clamp-1">${slide.title}</h3>
+            <span class="text-[10px] text-amber-400/80 font-mono">點擊進入排版 →</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateSlide(index) {
+      currentIndex = index;
+      const slide = slidesData[index];
+
+      document.getElementById('current-slide-img').src = slide.img;
+      document.getElementById('slide-badge').innerText = `${slide.id} / 10`;
+      document.getElementById('overlay-category').innerText = slide.category;
+      document.getElementById('overlay-date').innerText = `CHAPTER 0${slide.id}`;
+      document.getElementById('overlay-text').innerText = slide.copy;
+
+      const contentBox = document.getElementById('overlay-content-box');
+      contentBox.className = "py-3 px-1 transition-all duration-300";
+      if (currentPos === "top") {
+        contentBox.classList.add("mt-2", "mb-auto");
+      } else if (currentPos === "center") {
+        contentBox.classList.add("my-auto");
+      } else {
+        contentBox.classList.add("mt-auto", "mb-2");
+      }
+
+      document.getElementById('detail-page-num').innerText = `PAGE 0${slide.id} / 10`;
+      document.getElementById('detail-title').innerText = slide.title;
+      document.getElementById('detail-copy-box').innerText = slide.copy;
+      document.getElementById('detail-note').innerHTML = `<strong>敘事作用</strong>：${slide.note}`;
+
+      renderDots();
+      renderReel();
+    }
+
+    function prevSlide() {
+      const newIdx = (currentIndex - 1 + slidesData.length) % slidesData.length;
+      updateSlide(newIdx);
+    }
+
+    function nextSlide() {
+      const newIdx = (currentIndex + 1) % slidesData.length;
+      updateSlide(newIdx);
+    }
+
+    function goToSlide(idx) {
+      updateSlide(idx);
+    }
+
+    function goToSlideAndSwitch(idx) {
+      setViewMode('single');
+      updateSlide(idx);
+    }
+
+    function toggleOverlay() {
+      showOverlay = !showOverlay;
+      const overlay = document.getElementById('text-overlay-container');
+      const label = document.getElementById('overlay-status-label');
+      if (showOverlay) {
+        overlay.classList.remove('opacity-0');
+        overlay.classList.add('opacity-100');
+        label.innerHTML = "● 顯示文案排版";
+        label.className = "font-semibold text-emerald-400";
+      } else {
+        overlay.classList.remove('opacity-100');
+        overlay.classList.add('opacity-0');
+        label.innerHTML = "○ 隱藏 (純攝影)";
+        label.className = "font-semibold text-slate-400";
+      }
+    }
+
+    function toggleFont() {
+      isSerif = !isSerif;
+      const overlayText = document.getElementById('overlay-text');
+      const detailCopy = document.getElementById('detail-copy-box');
+      const label = document.getElementById('font-status-label');
+
+      if (isSerif) {
+        overlayText.classList.remove('font-sans-tc');
+        overlayText.classList.add('font-serif-tc');
+        detailCopy.classList.remove('font-sans-tc');
+        detailCopy.classList.add('font-serif-tc');
+        label.innerHTML = "● 經典宋體 (Serif)";
+        label.className = "font-semibold text-amber-300";
+      } else {
+        overlayText.classList.remove('font-serif-tc');
+        overlayText.classList.add('font-sans-tc');
+        detailCopy.classList.remove('font-serif-tc');
+        detailCopy.classList.add('font-sans-tc');
+        label.innerHTML = "● 現代黑體 (Sans)";
+        label.className = "font-semibold text-sky-400";
+      }
+    }
+
+    function cyclePosition() {
+      const label = document.getElementById('pos-status-label');
+      if (currentPos === "top") {
+        currentPos = "center";
+        label.innerText = "● 置中對齊";
+      } else if (currentPos === "center") {
+        currentPos = "bottom";
+        label.innerText = "● 靠底留白";
+      } else {
+        currentPos = "top";
+        label.innerText = "● 置頂留白";
+      }
+      updateSlide(currentIndex);
+    }
+
+    function setViewMode(mode) {
+      const singleView = document.getElementById('single-view');
+      const gridView = document.getElementById('grid-view');
+      const singleBtn = document.getElementById('mode-single-btn');
+      const gridBtn = document.getElementById('mode-grid-btn');
+
+      if (mode === 'single') {
+        singleView.classList.remove('hidden');
+        gridView.classList.add('hidden');
+        singleBtn.className = "px-3 py-1.5 rounded-lg font-medium transition-all bg-amber-500 text-slate-950 shadow-sm";
+        gridBtn.className = "px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all";
+      } else {
+        singleView.classList.add('hidden');
+        gridView.classList.remove('hidden');
+        gridBtn.className = "px-3 py-1.5 rounded-lg font-medium transition-all bg-amber-500 text-slate-950 shadow-sm";
+        singleBtn.className = "px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all";
+      }
+    }
+
+    function copyCurrentCopy() {
+      const text = slidesData[currentIndex].copy;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = "<span>✓ 已複製文案！</span>";
+        btn.classList.add('bg-emerald-500/30', 'text-emerald-300', 'border-emerald-500/40');
+        setTimeout(() => {
+          btn.innerHTML = oldHtml;
+          btn.classList.remove('bg-emerald-500/30', 'text-emerald-300', 'border-emerald-500/40');
+        }, 1800);
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
